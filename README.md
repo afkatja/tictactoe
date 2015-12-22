@@ -3,7 +3,7 @@
 
 ## Installation
 ### Windows 
-(Download the official Meteor installer)[https://install.meteor.com/windows]
+Download the official Meteor installer: https://install.meteor.com/windows
 
 ### OS X or Linux 
 Install the latest official Meteor release from your terminal:
