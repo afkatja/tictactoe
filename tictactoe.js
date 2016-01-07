@@ -1,38 +1,34 @@
-GameMatrix = new Mongo.Collection('matrix');
-
 if (Meteor.isClient) {
   Meteor.startup(function(){
     console.log('started up client');
   });
-  // counter starts at 0
-  Session.setDefault('counter', 0);
 
   Template.gameboard.helpers({
     counter: function () {
       return Session.get('counter');
     },
-    boarditems: function(){
-      var matrix = [];
-      var size = 3; //3 boxes per row/col
+    boardrows: function () {
       var rows = [];
-      var cols = [];
-      //while (){}
-      return matrix;
+      var size = 3;
+      for(var i = 0; i < size; i++){
+        var row = [];
+        for(var x = 1; x <= size; x++){
+          var index = (i * size) + x;
+          row.push({index: index});
+        }
+        rows.push({row: row});
+      }
+      return rows;
     }
   });
 
-  Template.gameboard.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
-    }
+  Template.box.events({
+    "click .box": playAction,
+    "touchstart .box": playAction
   });
-
-  Template.box.helpers({
-    index: function () {
-      return
-    }
-  });
+  var playAction = function () {
+    console.log('clicked box');
+  }
 }
 
 if (Meteor.isServer) {
