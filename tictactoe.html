@@ -5,10 +5,26 @@
 <body>
   <h1>Getting started with Meteor</h1>
 
-  {{> hello}}
+  {{> gameboard}}
 </body>
 
-<template name="hello">
+<template name="gameboard">
   <button>Click Me</button>
   <p>You've pressed the button {{counter}} times.</p>
+
+  {{#each boardrows}}
+    {{> boardrow}}
+  {{/each}}
+</template>
+
+<template name="boardrow">
+  <div class="row">
+    {{#each rowitems}}
+      {{> box}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="box">
+  <div class="box">{{index}}</div>
 </template>
