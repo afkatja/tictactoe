@@ -23,12 +23,10 @@ if (Meteor.isClient) {
   });
 
   Template.box.events({
-    "click .box": playAction,
-    "touchstart .box": playAction
+    "click .box": function(event){
+      console.log('clicked cell', event);
+    }
   });
-  var playAction = function () {
-    console.log('clicked box');
-  }
 }
 
 if (Meteor.isServer) {
