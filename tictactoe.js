@@ -12,9 +12,9 @@ if (Meteor.isClient) {
       var size = 3;
       for(var i = 0; i < size; i++){
         var row = [];
-        for(var x = 1; x <= size; x++){
+        for(var x = 0; x < size; x++){
           var index = (i * size) + x;
-          row.push({index: index});
+          row.push({index: index, colIndex: i, rowIndex: x});
         }
         rows.push({row: row});
       }
