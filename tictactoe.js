@@ -1,6 +1,7 @@
 if (Meteor.isClient) {
   Meteor.startup(function(){
     console.log('started up client');
+    Session.set({rows: []});
   });
 
   Template.gameboard.helpers({
@@ -8,8 +9,8 @@ if (Meteor.isClient) {
       return Session.get('counter');
     },
     boardrows: function () {
-      var rows = [];
       var size = 3;
+      var rows = [];
       for(var i = 0; i < size; i++){
         var row = [];
         for(var x = 0; x < size; x++){
@@ -17,6 +18,9 @@ if (Meteor.isClient) {
           row.push({index: index, colIndex: i, rowIndex: x});
         }
         rows.push({row: row});
+        Session.set({
+          rows: rows
+        });
       }
       return rows;
     }
@@ -24,7 +28,7 @@ if (Meteor.isClient) {
 
   Template.box.events({
     "click .box": function(event){
-      console.log('clicked cell', event);
+      console.log('clicked cell', Session.get('rows'));
     }
   });
 }
