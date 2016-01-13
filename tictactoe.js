@@ -18,10 +18,11 @@ if (Meteor.isClient) {
           row.push({index: index, colIndex: i, rowIndex: x});
         }
         rows.push({row: row});
-        Session.set({
-          rows: rows
-        });
       }
+      Session.set({
+        rows: rows
+      });
+      console.log('clicked cell', Session.get('rows'));
       return rows;
     }
   });
