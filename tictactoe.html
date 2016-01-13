@@ -11,20 +11,15 @@
 
 <template name="gameboard">
   <div class="gameboard">
-    {{#each boardrows}}
-      {{> boardrow}}
-    {{/each}}
+    <div class="row">
+      {{#each cells}}
+        {{> box}}
+      {{/each}}
+    </div>
   </div>
-</template>
-
-<template name="boardrow">
-  <div class="row">
-    {{#each row}}
-      {{> box}}
-    {{/each}}
-  </div>
+  <button class="reset-game" type="button">Reset game</button>
 </template>
 
 <template name="box">
-  <div class="box">{{rowIndex}} / {{colIndex}}</div>
+  <div class="box">{{type}}</div>
 </template>
