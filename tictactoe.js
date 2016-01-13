@@ -30,13 +30,15 @@ if (Meteor.isClient) {
     var winning;
     for(var x = 0; x < winningCombos.length; x++){
       var combo = winningCombos[x];
-      for (var i = 1; i < combo.length; i++) {
-        console.log(combo[i], Cells.findOne({cellIndex: combo[i]}));
-        if(Cells.findOne({cellIndex: combo[i]}).type !== Cells.findOne({cellIndex: combo[0]}).type){
-          winning = false;
-        }
-        winning = true;
-      }
+      var allX = combo.every(function(el, i, arr){
+        console.log('x?', el, Cells.findOne({cellIndex: el}));
+        return Cells.findOne({cellIndex: el}).type == 'X';
+      });
+      var allO = combo.every(function(el, i, arr){
+        console.log('o?', Cells.findOne({cellIndex: el}).type);
+        return Cells.findOne({cellIndex: el}).type == 'O';
+      });
+      winning = allX || allO;
     }
     console.log('winning', winning);
     return winning;
