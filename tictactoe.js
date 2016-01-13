@@ -28,19 +28,17 @@ if (Meteor.isClient) {
 
   function getWinningCombo(){
     var winning;
-    console.log('lala');
-    for(combo in winningCombos){
-      console.log(winningCombos(combo));
+    for(var x = 0; x < winningCombos.length; x++){
+      var combo = winningCombos[x];
       for (var i = 1; i < combo.length; i++) {
-        console.log(combo[i]);
-        console.log(Cells.findOne({cellIndex: combo[i]}));
+        console.log(combo[i], Cells.findOne({cellIndex: combo[i]}));
         if(Cells.findOne({cellIndex: combo[i]}).type !== Cells.findOne({cellIndex: combo[0]}).type){
           winning = false;
         }
         winning = true;
       }
     }
-    console.log(winning);
+    console.log('winning', winning);
     return winning;
   }
 
