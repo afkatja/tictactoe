@@ -27,14 +27,21 @@ if (Meteor.isClient) {
   ];
 
   function getWinningCombo(){
+    var winning;
+    console.log('lala');
     for(combo in winningCombos){
+      console.log(winningCombos(combo));
       for (var i = 1; i < combo.length; i++) {
+        console.log(combo[i]);
+        console.log(Cells.findOne({cellIndex: combo[i]}));
         if(Cells.findOne({cellIndex: combo[i]}).type !== Cells.findOne({cellIndex: combo[0]}).type){
-          return false;
+          winning = false;
         }
-        return true;
+        winning = true;
       }
     }
+    console.log(winning);
+    return winning;
   }
 
   Template.gameboard.helpers({
@@ -61,11 +68,11 @@ if (Meteor.isClient) {
     "click .box": function(event){
       //cell already filled
       var cellFilled = Cells.findOne({_id: this._id}).type;
-      getWinningCombo();
       //game over
       if(!cellFilled) {
-        setCurrentPlayer();
         Cells.update({ _id: this._id }, { $set: { type: currentPlayer() } });
+        getWinningCombo();
+        setCurrentPlayer();
       }
     }
   });
