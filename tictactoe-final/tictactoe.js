@@ -26,14 +26,16 @@ if (Meteor.isClient) {
     [2, 4, 6]
   ];
 
+  function isComboAllX(el, i, arr){
+    console.log('x?', el, Cells.findOne({cellIndex: el}));
+    return Cells.findOne({cellIndex: el}).type == 'X' ;
+  }
+
   function getWinningCombo(){
     var winning;
     for(var x = 0; x < winningCombos.length; x++){
       var combo = winningCombos[x];
-      var allX = combo.every(function(el, i, arr){
-        console.log('x?', el, Cells.findOne({cellIndex: el}));
-        return Cells.findOne({cellIndex: el}).type == 'X';
-      });
+      var allX = combo.every(isComboAllX);
       var allO = combo.every(function(el, i, arr){
         console.log('o?', Cells.findOne({cellIndex: el}).type);
         return Cells.findOne({cellIndex: el}).type == 'O';
@@ -58,7 +60,8 @@ if (Meteor.isClient) {
     'click .reset-game': function(){
       //Reset game: make all cells empty
       var cells = Cells.find().fetch();
-      ids.forEach(function(cell){
+      console.log(cells);
+      cells.forEach(function(cell){
         Cells.update({_id: cell._id}, {$set: {type: null}});
       });
     }
