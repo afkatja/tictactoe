@@ -5,11 +5,18 @@
 
 <body>
   <h1>Welcome to the workshop tictactoe</h1>
+
   {{> gameboard}}
 </body>
 
 <template name="gameboard">
   <div class="gameboard">
-    <div class="box"></div>
+    {{#each boxes}}
+      {{> box}}
+    {{/each}}
   </div>
+</template>
+
+<template name="box">
+  <div class="box">{{cellIndex}}</div>
 </template>
