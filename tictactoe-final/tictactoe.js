@@ -89,7 +89,7 @@ if (Meteor.isServer) {
   Meteor.startup(function () {
     Cells.remove({});
     //fill 9 cells
-    if(Cells.find().count() == 0) {
+    if(Cells.find().count() === 0) {
       for(var i = 0; i < 9; i++){
         Cells.insert({cellIndex: i});
       }

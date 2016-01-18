@@ -1,8 +1,14 @@
 <head>
-  <title>Welcome to the workshop tictactoe</title>
-  <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700" rel="stylesheet" type="text/css">
+  <title>tictactoe</title>
 </head>
 
 <body>
-  <h1>Welcome to the workshop tictactoe</h1>
+  <h1>Welcome to Meteor!</h1>
+
+  {{> hello}}
 </body>
+
+<template name="hello">
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+</template>
