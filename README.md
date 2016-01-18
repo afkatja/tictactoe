@@ -47,7 +47,9 @@ In order to see the nice font as we used in the demo, add the following rule in 
     for(var i = 0; i < CellsCount; i++){}
     ```
     - use css classname `.box` for each cell to take advantage of the provided styling (tictactoe.css)
-- step 3: register the click event to a cell
+- step 3
+  - register the click event to a cell
+- step 4  
   - display X or O depending on the current player symbol using [Session](http://docs.meteor.com/#/full/session) variable (is there any other nice way?)
   - whose turn is it now (current player symbol)?
   - (optional) display some nice icon instead of X or O
