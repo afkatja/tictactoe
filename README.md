@@ -11,20 +11,43 @@ Install the latest official Meteor release from your terminal:
 $ curl https://install.meteor.com/ | sh
 ```
 
-Once Meteor is installed, run project from your terminal:
+Once Meteor is installed, run the following code in your Terminal:
+```sh
+$ mkdir Projects
+$ cd Projects
+$ meteor create tictactoe
+```
+
+The, run the project from your terminal:
 ``` sh
-$ cd /tictactoe
+$ cd tictactoe
 $ meteor
 ```
 
 You can test the app at `http://localhost:3000`
 
+Now, open your favorite text editor (for example, [Atom](https://atom.io/)) where you can edit your project.
+
+In order to see the nice font as we used in the demo, add the following rule in your `.html` file:
+```html
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC:700" rel="stylesheet" type="text/css">
+```
+
 ## Workshop steps
 - step 0: install Meteor and test locally
 - step 1: setup the Tic tac toe project
-  - display the grid (3 x 3) using [Meteor Collection](http://docs.meteor.com/#/full/mongo_collection) (is there any other nice way?)
-  - use css classname `.box` for each cell to take advantage of the provided styling (tictactoe.css)
-- step 2: register the click event to a cell
+  - you can rename the template in your `.html` file, for example `<template name="gameboard"></template>` instead of the `hello` template
+  - begin with `<div class="gameboard"></div>` (Now you should see a nice green schoolboard)
+  - you can add `<div class="box"></div>` into the `.gameboard` in your template
+- step 2: display the grid (3 x 3) 
+    - you can use for example, [Meteor Collection](http://docs.meteor.com/#/full/mongo_collection)
+    - you can follow the steps explained in [Meteor tutorial](https://www.meteor.com/tutorials/blaze/templates). Instead of tasks from the tutorial, we want to make boxes
+    - you probably want to use a loop in order to create a scalable application, like this: 
+    ```javascript
+    for(var i = 0; i < CellsCount; i++){}
+    ```
+    - use css classname `.box` for each cell to take advantage of the provided styling (tictactoe.css)
+- step 3: register the click event to a cell
   - display X or O depending on the current player symbol using [Session](http://docs.meteor.com/#/full/session) variable (is there any other nice way?)
   - whose turn is it now (current player symbol)?
   - (optional) display some nice icon instead of X or O
