@@ -26,25 +26,20 @@ if (Meteor.isClient) {
     [2, 4, 6]
   ];
 
-  function isComboAllX(el, i, arr){
-    console.log('x?', el, Cells.findOne({cellIndex: el}));
-    return Cells.findOne({cellIndex: el}).type == 'X' ;
+  function isComboAllTheSame(el, i, arr){
+    return Cells.findOne({cellIndex: el}).type === 'X' ||
+      Cells.findOne({cellIndex: el}).type === 'O';
   }
 
   function getWinningCombo(){
     var winning;
     for(var x = 0; x < winningCombos.length; x++){
       var combo = winningCombos[x];
-      var allX = combo.every(isComboAllX);
-      var allO = combo.every(function(el, i, arr){
-        console.log('o?', Cells.findOne({cellIndex: el}).type);
-        return Cells.findOne({cellIndex: el}).type == 'O';
-      });
-      winning = allX || allO;
+      winning = combo.every(isComboAllTheSame);
     }
     console.log('winning', winning);
     return winning;
-  }
+  }{{currentPlayer}}
 
   Template.gameboard.helpers({
     cells: function () {
@@ -71,9 +66,12 @@ if (Meteor.isClient) {
     "click .box": function(event){
       //cell already filled
       var cellFilled = Cells.findOne({_id: this._id}).type;
+      console.log(cellFilled);
       //game over
       if(!cellFilled) {
-        Cells.update({ _id: this._id }, { $set: { type: currentPlayer() } });
+        var player = currentPlayer();
+        console.log('PLauer',this._id);
+        Cells.update({ _id: this._id }, { $set: { type: player } });
         getWinningCombo();
         setCurrentPlayer();
       }
