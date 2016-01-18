@@ -10,13 +10,11 @@
 </body>
 
 <template name="gameboard">
-  It is {{currentPlayer}} turn!
+  <h2>It is {{currentPlayer}} turn!</h2>
   <div class="gameboard">
-    <div class="row">
-      {{#each cells}}
-        {{> box}}
-      {{/each}}
-    </div>
+    {{#each cells}}
+      {{> box}}
+    {{/each}}
   </div>
   <button class="reset-game" type="button">Reset game</button>
 </template>

@@ -46,6 +46,9 @@ if (Meteor.isClient) {
       var boxes = Cells.find({}).fetch();
       return boxes;
     },
+    currentPlayer: function () {
+      return currentPlayer();
+    },
     getWinningState: function(){
       return getWinningState();
     }
@@ -70,7 +73,6 @@ if (Meteor.isClient) {
       //game over
       if(!cellFilled) {
         var player = currentPlayer();
-        console.log('PLauer',this._id);
         Cells.update({ _id: this._id }, { $set: { type: player } });
         getWinningCombo();
         setCurrentPlayer();
