@@ -26,19 +26,18 @@ if (Meteor.isClient) {
     [2, 4, 6]
   ];
 
+
+  function isComboAllTheSame(el, i, arr){
+    return Cells.findOne({cellIndex: el}).type === 'X' ||
+      Cells.findOne({cellIndex: el}).type === 'O';
+  }
+
+
   function getWinningCombo(){
     var winning;
     for(var x = 0; x < winningCombos.length; x++){
       var combo = winningCombos[x];
-      var allX = combo.every(function(el, i, arr){
-        console.log('x?', el, Cells.findOne({cellIndex: el}));
-        return Cells.findOne({cellIndex: el}).type == 'X';
-      });
-      var allO = combo.every(function(el, i, arr){
-        console.log('o?', Cells.findOne({cellIndex: el}).type);
-        return Cells.findOne({cellIndex: el}).type == 'O';
-      });
-      winning = allX || allO;
+      winning = combo.every(isComboAllTheSame);
     }
     console.log('winning', winning);
     return winning;
