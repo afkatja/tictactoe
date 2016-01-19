@@ -1,0 +1,14 @@
+html, body {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  background: url(http://images.designtrends.com/wp-content/uploads/2015/12/22100209/Green-Chalkboard-Texture.jpg) 0 0 no-repeat;
+  background-size: cover;
+  color: #fff;
+}
+
+.container {
+
+}
