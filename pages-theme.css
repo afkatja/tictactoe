@@ -7,8 +7,18 @@ body {
   background: url(http://images.designtrends.com/wp-content/uploads/2015/12/22100209/Green-Chalkboard-Texture.jpg) 0 0 no-repeat;
   background-size: cover;
   color: #fff;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;;
 }
 
 .container {
 
+}
+
+h1 {
+  font-family: 'Amatic SC', cursive;
+}
+
+code, pre, .code {
+  font-family: 'Inconsolata', monospace;
 }
