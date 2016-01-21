@@ -26,28 +26,28 @@ if (Meteor.isClient) {
     [2, 4, 6]
   ];
 
+  function isComboAllTheSame(el, i, arr){
+    return Cells.findOne({cellIndex: el}).type === 'X' ||
+      Cells.findOne({cellIndex: el}).type === 'O';
+  }
+
   function getWinningCombo(){
     var winning;
     for(var x = 0; x < winningCombos.length; x++){
       var combo = winningCombos[x];
-      var allX = combo.every(function(el, i, arr){
-        console.log('x?', el, Cells.findOne({cellIndex: el}));
-        return Cells.findOne({cellIndex: el}).type == 'X';
-      });
-      var allO = combo.every(function(el, i, arr){
-        console.log('o?', Cells.findOne({cellIndex: el}).type);
-        return Cells.findOne({cellIndex: el}).type == 'O';
-      });
-      winning = allX || allO;
+      winning = combo.every(isComboAllTheSame);
     }
     console.log('winning', winning);
     return winning;
-  }
+  }{{currentPlayer}}
 
   Template.gameboard.helpers({
     cells: function () {
       var boxes = Cells.find({}).fetch();
       return boxes;
+    },
+    currentPlayer: function () {
+      return currentPlayer();
     },
     getWinningState: function(){
       return getWinningState();
@@ -58,7 +58,8 @@ if (Meteor.isClient) {
     'click .reset-game': function(){
       //Reset game: make all cells empty
       var cells = Cells.find().fetch();
-      ids.forEach(function(cell){
+      console.log(cells);
+      cells.forEach(function(cell){
         Cells.update({_id: cell._id}, {$set: {type: null}});
       });
     }
@@ -68,9 +69,11 @@ if (Meteor.isClient) {
     "click .box": function(event){
       //cell already filled
       var cellFilled = Cells.findOne({_id: this._id}).type;
+      console.log(cellFilled);
       //game over
       if(!cellFilled) {
-        Cells.update({ _id: this._id }, { $set: { type: currentPlayer() } });
+        var player = currentPlayer();
+        Cells.update({ _id: this._id }, { $set: { type: player } });
         getWinningCombo();
         setCurrentPlayer();
       }
@@ -88,7 +91,7 @@ if (Meteor.isServer) {
   Meteor.startup(function () {
     Cells.remove({});
     //fill 9 cells
-    if(Cells.find().count() == 0) {
+    if(Cells.find().count() === 0) {
       for(var i = 0; i < 9; i++){
         Cells.insert({cellIndex: i});
       }
