@@ -28,7 +28,7 @@ You can test the app at `http://localhost:3000`
 
 Now, open your favorite text editor (for example, [Atom](https://atom.io/)) where you can edit your project.
 
-In order to see the nice font as we used in the demo, add the following rule in your `.html` file:
+In order to see the nice font as we used in the demo, add the following rule in the `<head>` of your `html` file:
 ```html
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700" rel="stylesheet" type="text/css">
 ```
@@ -50,9 +50,10 @@ In order to see the nice font as we used in the demo, add the following rule in 
     - make sure you register this collection in the server part of the code. Can you predict / test what happens if you register the collection on the client side?
     - use css classname `.box` for each cell to take advantage of the provided styling (tictactoe.css)
 - step 3
-  - register the click event to a cell
+  - register the click event on a box
   - read about template events in [the documentation](http://docs.meteor.com/#/full/template_events)
   - the notation is `{ key: value }`
+  - try to display the box's index by `console.log()` (You can then open the browser's console by right clicking on the page and selecting `Inspect`; it looks like this ![console](https://developer.chrome.com/devtools/docs/console-files/log-element.png))
   - note about `this` which is always related to the context of where you are at this moment. Read more about `this` on [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)
 - step 4
   - display a value in the box
