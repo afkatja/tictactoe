@@ -46,10 +46,12 @@ In order to see the nice font as we used in the demo, add the following rule in 
     ```javascript
     for(var i = 0; i < CellsCount; i++){}
     ```
-    - make sure you register this collection in the server part of the code
+    - You would want to update the collection only once
+    - make sure you register this collection in the server part of the code. Can you predict / test what happens if you register the collection on the client side?
     - use css classname `.box` for each cell to take advantage of the provided styling (tictactoe.css)
 - step 3
   - register the click event to a cell
+  - read about template events in [the documentation](http://docs.meteor.com/#/full/template_events)
 - step 4  
   - display X or O depending on the current player symbol using [Session](http://docs.meteor.com/#/full/session) variable (is there any other nice way?)
   - whose turn is it now (current player symbol)?
