@@ -39,13 +39,14 @@ In order to see the nice font as we used in the demo, add the following rule in 
   - you can rename the template in your `.html` file, for example `<template name="gameboard"></template>` instead of the `hello` template
   - begin with `<div class="gameboard"></div>` (Now you should see a nice green schoolboard)
   - you can add `<div class="box"></div>` into the `.gameboard` in your template
-- step 2: display the grid (3 x 3) 
-    - you can use for example, [Meteor Collection](http://docs.meteor.com/#/full/mongo_collection)
+- step 2: display the grid (3 x 3)
+    - you can use for example, [Mongo Collection](http://docs.meteor.com/#/full/mongo_collection)
     - you can follow the steps explained in [Meteor tutorial](https://www.meteor.com/tutorials/blaze/templates). Instead of tasks from the tutorial, we want to make boxes
-    - you probably want to use a loop in order to create a scalable application, like this: 
+    - you probably want to use a loop in order to create a scalable application, like this:
     ```javascript
     for(var i = 0; i < CellsCount; i++){}
     ```
+    - make sure you register this collection in the server part of the code
     - use css classname `.box` for each cell to take advantage of the provided styling (tictactoe.css)
 - step 3
   - register the click event to a cell
