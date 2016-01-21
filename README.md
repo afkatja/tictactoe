@@ -50,10 +50,11 @@ In order to see the nice font as we used in the demo, add the following rule in 
     - make sure you register this collection in the server part of the code. Can you predict / test what happens if you register the collection on the client side?
     - use css classname `.box` for each cell to take advantage of the provided styling (tictactoe.css)
 - step 3
-  - register the click event on a box
+  - register the click event on a box element by using an event handler for its template
   - read about template events in [the documentation](http://docs.meteor.com/#/full/template_events)
   - the notation is `{ key: value }`
-  - try to display the box's index by `console.log()` (You can then open the browser's console by right clicking on the page and selecting `Inspect`; it looks like this ![console](https://developer.chrome.com/devtools/docs/console-files/log-element.png))
+  - try to display something in the browser's console by `console.log()` (You can then open the browser's console by right clicking on the page and selecting `Inspect` - it looks like this) ![console](https://developer.chrome.com/devtools/docs/console-files/log-element.png)
+  - now try to display the box's index in the console; to do this, you need the special object of javascript called `this`
   - note about `this` which is always related to the context of where you are at this moment. Read more about `this` on [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)
 - step 4
   - display a value in the box
