@@ -52,22 +52,31 @@ In order to see the nice font as we used in the demo, add the following rule in 
 - step 3
   - register the click event to a cell
   - read about template events in [the documentation](http://docs.meteor.com/#/full/template_events)
-- step 4  
-  - display X or O depending on the current player symbol using [Session](http://docs.meteor.com/#/full/session) variable (is there any other nice way?)
-  - whose turn is it now (current player symbol)?
+  - the notation is `{ key: value }`
+  - note about `this` which is always related to the context of where you are at this moment. Read more about `this` on [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)
+- step 4
+  - display a value in the box
+  - Note that method within template is not directly available for template events, so you would want to make a separate helper function
+  - Note that the property of one template is not directly available for other templates
+  - You would want to use methods of the Meteor Collection `.update()` to set a property on an item and `.findOne()` to retrieve an item with the property
+  - a way to retrieve a property is `Object.property` or `Object['property']`
+- step 5
+  - display X or O depending on the current player symbol using [Session](http://docs.meteor.com/#/full/session) variable
+  - Session is independent of templates or events and it has to live in the Client
+  - Determine whose turn is it now (current player symbol)?
   - (optional) display some nice icon instead of X or O
-- step 4: determine game rules (when do we have 3 in a row)
+- step 6: determine game rules (when do we have 3 in a row)
   - using a Meteor Collection?
   - using a [plain javascript Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)?
   - using a [two-dimensional javascript Array](http://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript)?
   - using a [javascript object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer)?
   - any other nice way?
-- step 5: game status
+- step 7: game status
   - determine whether we have a winner on click cell using the defined rules from step 4
   - game finished in a draw (all cells filled but no winner)
   - display game status
   - implement a reset button
-- step 6 (optional): multiplayer game
+- step 8 (optional): multiplayer game
   - allow 2 users to join the game using [Meteor Users](http://docs.meteor.com/#/full/meteor_user)
   - tip: you might want to begin using the `Meteor.isServer()` block
   - assign a symbol to each user (X or O)
