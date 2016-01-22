@@ -57,20 +57,29 @@ if (Meteor.isClient) {
   function resetGame(){
     //Reset game: make all cells empty
     var cells = Cells.find().fetch();
-    cells.forEach(function(cell){
-      Cells.update({_id: cell._id}, {$set: {player: null}});
-    });
+    for(var i = 0; i < cells.length; i++){
+      //remove player property from all cells
+      Cells.update({_id: cells[i]._id}, {$set: {player: null}});
+    }
     Session.set('winner', null);
     clearTimeout(winningEndTimeout);
   }
 
   function setCurrentWinner() {
-    console.log('winning cell type', currentPlayer());
     Session.set('winner', currentPlayer());
+    resetGameTimeout();
   }
 
   function getCurrentWinner(){
     return Session.get('winner');
+  }
+
+  function resetGameTimeout () {
+    if(getCurrentWinner()) {
+      winningEndTimeout = setTimeout(function(){
+        resetGame();
+      }, 5000);
+    }
   }
 
   Template.gameboard.onRendered(resetGame);
@@ -84,14 +93,7 @@ if (Meteor.isClient) {
     isWinning: function(){
       return hasWon(currentPlayer());
     },
-    currentWinner: getCurrentWinner,
-    resetGameTimeout: function () {
-      if(this.isWinning) {
-        winningEndTimeout = setTimeout(function(){
-          resetGame();
-        }, 1000);
-      }
-    }
+    currentWinner: getCurrentWinner
   });
 
   Template.gameboard.events({
@@ -118,6 +120,10 @@ if (Meteor.isClient) {
   Template.box.helpers({
     currentPlayer: function(){
       return currentPlayer();
+    },
+    disabled: function () {
+      //if the cell is filled, we cannot click there anymore
+      return this.player;
     }
   });
 }

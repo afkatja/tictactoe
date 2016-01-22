@@ -39,6 +39,7 @@ strong {
   justify-content: center;
   align-items: center;
   font-size: 3rem;
+  cursor: crosshair;
 }
 
 .box:nth-child(n+2) {
@@ -49,6 +50,10 @@ strong {
 }
 .box:nth-child(n+4) {
   border-top: none;
+}
+
+.box.disabled {
+  cursor: not-allowed;
 }
 
 .reset-game {
