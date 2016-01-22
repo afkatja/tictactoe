@@ -10,6 +10,12 @@ if (Meteor.isClient) {
       return Boxes.find({});
     }
   });
+
+  Template.gameboard.events({
+    click: function() {
+      console.log('Click', this);
+    }
+  });
 }
 
 if (Meteor.isServer) {

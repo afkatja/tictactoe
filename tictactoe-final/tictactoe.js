@@ -39,7 +39,7 @@ if (Meteor.isClient) {
     }
     console.log('winning', winning);
     return winning;
-  }{{currentPlayer}}
+  }
 
   Template.gameboard.helpers({
     cells: function () {
