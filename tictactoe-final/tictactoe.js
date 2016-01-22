@@ -25,20 +25,36 @@ if (Meteor.isClient) {
 
   var winningEndTimeout;
 
-  function isComboAllTheSame(el, i, arr){
-    return Cells.findOne({cellIndex: el}) &&
-          (Cells.findOne({cellIndex: el}).player === 'X' ||
-          Cells.findOne({cellIndex: el}).player === 'O');
+  function getSymbolInCell(cellIndex){
+    var matchingCell = Cells.findOne({cellIndex: cellIndex});
+    console.log('trying to find a symbol in cell', matchingCell);
+    if(matchingCell) {
+      return matchingCell.player;
+    }
   }
 
-  function hasWon(){
-    var winning;
+  function match(symbols, currentPlayerSymbol) {
+    for(var x = 0; x < symbols.length; x++){
+      if (symbols[x] != currentPlayerSymbol )
+        return false;
+    }
+
+    return true;
+  }
+
+  function hasWon(currentPlayerSymbol){
+
     for(var x = 0; x < winningCombos.length; x++){
       var combo = winningCombos[x];
-      winning = combo.every(isComboAllTheSame);
-      if (winning) { break; }
+      var symbols = combo.map(getSymbolInCell);
+      if( match(symbols, currentPlayerSymbol) )
+      {
+        return true;
+      }
     }
-    return winning;
+
+    // no combo matched means no winner (yet)
+    return false;
   }
 
   function resetGame(){
@@ -64,7 +80,9 @@ if (Meteor.isClient) {
       return boxes;
     },
     currentPlayer: currentPlayer,
-    isWinning: hasWon,
+    isWinning: function(){
+      return hasWon(currentPlayer());
+    },
     currentWinner: function () {
       return Session.get('winner');
     },
@@ -90,7 +108,7 @@ if (Meteor.isClient) {
       // is the cell is empty, fill it with current player (symbol)
       var player = currentPlayer();
       Cells.update(this._id, { $set: { player: player } });
-      if(hasWon()) {
+      if(hasWon(player)) {
         setCurrentWinner();
       } else {
         setNextPlayer();
