@@ -23,11 +23,11 @@ if (Meteor.isClient) {
     [2, 4, 6]
   ];
 
-  var winningEndTimeout;
+  var winningEndTimeout,
+      weHaveAWinner = false;
 
   function getSymbolInCell(cellIndex){
     var matchingCell = Cells.findOne({cellIndex: cellIndex});
-    console.log('trying to find a symbol in cell', matchingCell);
     if(matchingCell) {
       return matchingCell.player;
     }
@@ -43,16 +43,13 @@ if (Meteor.isClient) {
   }
 
   function hasWon(currentPlayerSymbol){
-
     for(var x = 0; x < winningCombos.length; x++){
       var combo = winningCombos[x];
       var symbols = combo.map(getSymbolInCell);
-      if( match(symbols, currentPlayerSymbol) )
-      {
+      if(match(symbols, currentPlayerSymbol)) {
         return true;
       }
     }
-
     // no combo matched means no winner (yet)
     return false;
   }
@@ -72,6 +69,10 @@ if (Meteor.isClient) {
     Session.set('winner', currentPlayer());
   }
 
+  function getCurrentWinner(){
+    return Session.get('winner');
+  }
+
   Template.gameboard.onRendered(resetGame);
 
   Template.gameboard.helpers({
@@ -83,9 +84,7 @@ if (Meteor.isClient) {
     isWinning: function(){
       return hasWon(currentPlayer());
     },
-    currentWinner: function () {
-      return Session.get('winner');
-    },
+    currentWinner: getCurrentWinner,
     resetGameTimeout: function () {
       if(this.isWinning) {
         winningEndTimeout = setTimeout(function(){
@@ -103,8 +102,8 @@ if (Meteor.isClient) {
     "click .box": function(){
       //cell already filled
       var cellFilled = this.player;
-      //if the cell is filled, nothing
-      if(cellFilled) { return; }
+      //if the cell is filled or we have a winner, do nothing
+      if(cellFilled || getCurrentWinner()) { return; }
       // is the cell is empty, fill it with current player (symbol)
       var player = currentPlayer();
       Cells.update(this._id, { $set: { player: player } });
