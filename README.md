@@ -56,7 +56,7 @@ In order to see the nice font as we used in the demo, add the following rule in 
   - whose turn is it now (current player symbol)?
   - (optional) display some nice icon instead of X or O
 - step 5
-  - only add a symbol to a box if it is empty (link if statements in js)
+  - only add a symbol to a box if it is empty (link to if statements in js)
   - then only change the player if you have added a symbol to the gameboard
   - change the player between 'X' and 'O' every time you click in a box
 
