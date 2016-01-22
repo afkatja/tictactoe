@@ -1,6 +1,6 @@
 <head>
   <title>Welcome to the workshop tictactoe</title>
-  <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
@@ -10,7 +10,11 @@
 </body>
 
 <template name="gameboard">
-  <h2>It is {{currentPlayer}} turn!</h2>
+  {{#if isWinning}}
+  <h2 class="winner">And the winner is... <strong>{{currentWinner}}</strong>!</h2>
+  {{else}}
+  <h2 class="current">It is <strong>{{currentPlayer}}</strong> turn!</h2>
+  {{/if}}
   <div class="gameboard">
     {{#each cells}}
       {{> box}}

@@ -2,7 +2,6 @@ Cells = new Meteor.Collection('cells');
 
 if (Meteor.isClient) {
   Meteor.startup(function(){
-    console.log('started up client');
     Session.set({currentPlayer: 'X'});
   });
 
@@ -26,9 +25,12 @@ if (Meteor.isClient) {
     [2, 4, 6]
   ];
 
+  var winningEndTimeout;
+
   function isComboAllTheSame(el, i, arr){
-    return Cells.findOne({cellIndex: el}).type === 'X' ||
-      Cells.findOne({cellIndex: el}).type === 'O';
+    return Cells.findOne({cellIndex: el}) &&
+          (Cells.findOne({cellIndex: el}).type === 'X' ||
+          Cells.findOne({cellIndex: el}).type === 'O');
   }
 
   function getWinningCombo(){
@@ -37,9 +39,12 @@ if (Meteor.isClient) {
       var combo = winningCombos[x];
       winning = combo.every(isComboAllTheSame);
     }
-    console.log('winning', winning);
     return winning;
   }
+
+  Template.gameboard.onRendered(function(){
+    resetGame();
+  });
 
   Template.gameboard.helpers({
     cells: function () {
@@ -49,33 +54,55 @@ if (Meteor.isClient) {
     currentPlayer: function () {
       return currentPlayer();
     },
-    getWinningState: function(){
-      return getWinningState();
+    isWinning: function(){
+      return getWinningCombo();
+    },
+    currentWinner: function () {
+      return Session.get('winner');
+    },
+    resetGameTimeout: function () {
+      if(this.isWinning) {
+        winningEndTimeout = setTimeout(function(){
+          resetGame();
+        }, 1000);
+      }
     }
   });
 
   Template.gameboard.events({
     'click .reset-game': function(){
-      //Reset game: make all cells empty
-      var cells = Cells.find().fetch();
-      console.log(cells);
-      cells.forEach(function(cell){
-        Cells.update({_id: cell._id}, {$set: {type: null}});
-      });
+      resetGame();
     }
   });
 
+  function resetGame(){
+    //Reset game: make all cells empty
+    var cells = Cells.find().fetch();
+    cells.forEach(function(cell){
+      Cells.update({_id: cell._id}, {$set: {type: null}});
+    });
+    Session.set('winner', null);
+    clearTimeout(winningEndTimeout);
+  }
+
+  function setCurrentWinner() {
+    console.log('winning cell type', currentPlayer());
+    Session.set('winner', currentPlayer());
+  }
+
   Template.box.events({
-    "click .box": function(event){
+    "click .box": function(){
       //cell already filled
       var cellFilled = Cells.findOne({_id: this._id}).type;
-      console.log(cellFilled);
       //game over
       if(!cellFilled) {
         var player = currentPlayer();
         Cells.update({ _id: this._id }, { $set: { type: player } });
         getWinningCombo();
         setCurrentPlayer();
+        if(getWinningCombo()) {
+          setCurrentWinner();
+        }
       }
     }
   });

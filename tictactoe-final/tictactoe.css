@@ -13,6 +13,13 @@ body {
 h1 {
   font-size: 4rem;
 }
+h2 {
+  font-size: 3em;
+  font-weight: 400;
+}
+strong {
+  font-weight: 700;
+}
 .gameboard {
   width: 50vw;
   height: 50vh;
