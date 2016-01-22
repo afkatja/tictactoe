@@ -1,15 +1,13 @@
 Cells = new Meteor.Collection('cells');
 
 if (Meteor.isClient) {
-  Meteor.startup(function(){
     Session.set({currentPlayer: 'X'});
-  });
 
   var currentPlayer = function(){
     return Session.get('currentPlayer');
   };
 
-  function setCurrentPlayer(){
+  function setNextPlayer(){
     if(currentPlayer() == 'X') Session.set({currentPlayer: 'O'});
     else Session.set({currentPlayer: 'X'});
   }
@@ -29,34 +27,44 @@ if (Meteor.isClient) {
 
   function isComboAllTheSame(el, i, arr){
     return Cells.findOne({cellIndex: el}) &&
-          (Cells.findOne({cellIndex: el}).type === 'X' ||
-          Cells.findOne({cellIndex: el}).type === 'O');
+          (Cells.findOne({cellIndex: el}).player === 'X' ||
+          Cells.findOne({cellIndex: el}).player === 'O');
   }
 
-  function getWinningCombo(){
+  function hasWon(){
     var winning;
     for(var x = 0; x < winningCombos.length; x++){
       var combo = winningCombos[x];
       winning = combo.every(isComboAllTheSame);
+      if (winning) { break; }
     }
     return winning;
   }
 
-  Template.gameboard.onRendered(function(){
-    resetGame();
-  });
+  function resetGame(){
+    //Reset game: make all cells empty
+    var cells = Cells.find().fetch();
+    cells.forEach(function(cell){
+      Cells.update({_id: cell._id}, {$set: {player: null}});
+    });
+    Session.set('winner', null);
+    clearTimeout(winningEndTimeout);
+  }
+
+  function setCurrentWinner() {
+    console.log('winning cell type', currentPlayer());
+    Session.set('winner', currentPlayer());
+  }
+
+  Template.gameboard.onRendered(resetGame);
 
   Template.gameboard.helpers({
     cells: function () {
       var boxes = Cells.find({}).fetch();
       return boxes;
     },
-    currentPlayer: function () {
-      return currentPlayer();
-    },
-    isWinning: function(){
-      return getWinningCombo();
-    },
+    currentPlayer: currentPlayer,
+    isWinning: hasWon,
     currentWinner: function () {
       return Session.get('winner');
     },
@@ -70,39 +78,22 @@ if (Meteor.isClient) {
   });
 
   Template.gameboard.events({
-    'click .reset-game': function(){
-      resetGame();
-    }
+    'click .reset-game': resetGame
   });
-
-  function resetGame(){
-    //Reset game: make all cells empty
-    var cells = Cells.find().fetch();
-    cells.forEach(function(cell){
-      Cells.update({_id: cell._id}, {$set: {type: null}});
-    });
-    Session.set('winner', null);
-    clearTimeout(winningEndTimeout);
-  }
-
-  function setCurrentWinner() {
-    console.log('winning cell type', currentPlayer());
-    Session.set('winner', currentPlayer());
-  }
 
   Template.box.events({
     "click .box": function(){
       //cell already filled
-      var cellFilled = Cells.findOne({_id: this._id}).type;
-      //game over
-      if(!cellFilled) {
-        var player = currentPlayer();
-        Cells.update({ _id: this._id }, { $set: { type: player } });
-        getWinningCombo();
-        setCurrentPlayer();
-        if(getWinningCombo()) {
-          setCurrentWinner();
-        }
+      var cellFilled = this.player;
+      //if the cell is filled, nothing
+      if(cellFilled) { return; }
+      // is the cell is empty, fill it with current player (symbol)
+      var player = currentPlayer();
+      Cells.update(this._id, { $set: { player: player } });
+      if(hasWon()) {
+        setCurrentWinner();
+      } else {
+        setNextPlayer();
       }
     }
   });
