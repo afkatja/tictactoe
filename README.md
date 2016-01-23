@@ -68,9 +68,6 @@ In order to see the nice font as we used in the demo, add the following rule in 
   - only add a symbol to a box if it is empty (link to if statements in js)
   - then only change the player if you have added a symbol to the gameboard
   - change the current Player between 'X' and 'O' every time you click in a box
-
-TOT HIER
-- step 5
   - display X or O depending on the current player symbol using [Session](http://docs.meteor.com/#/full/session) variable
   - Session is independent of templates or events and it has to live in the Client
   - Determine whose turn is it now (current player symbol)?
@@ -81,8 +78,11 @@ TOT HIER
   - using a [two-dimensional javascript Array](http://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript)?
   - using a [javascript object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer)?
   - any other nice way?
+  - check every time a new symbol is added if there is a winning state
+
+
 - step 7: game status
-  - determine whether we have a winner on click cell using the defined rules from step 4
+  - determine whether we have a winner on click cell using the defined rules from step 6
   - game finished in a draw (all cells filled but no winner)
   - display game status
   - implement a reset button
