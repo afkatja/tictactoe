@@ -1,0 +1,27 @@
+<head>
+  <title>Welcome to the workshop tictactoe</title>
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <h1>Welcome to the workshop tictactoe</h1>
+  {{> gameboard}}
+</body>
+
+<template name="gameboard">
+  {{#if isWinning}}
+    <h2 class="winner">And the winner is... <strong>{{currentWinner}}</strong>!</h2>
+  {{else}}
+    <h2 class="current">It is <strong>{{currentPlayer}}</strong> turn!</h2>
+  {{/if}}
+  
+  <div class="gameboard">
+    {{#each boxes}}
+      {{> box}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="box">
+  <div class="box {{#if disabled}} disabled {{/if}}">{{player}}</div>
+</template>

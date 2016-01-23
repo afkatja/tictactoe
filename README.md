@@ -95,16 +95,10 @@ In order to see the nice font as we used in the demo, add the following rule in 
   - Log if there is a winner
 - step 8: Display gamestatus
   - Display the winner above the board
+  - also make sure that you cannot add a symbol anymore when there is a winner
 - step 9: reset button
-
-
-
-- step 7: game status
-  - determine whether we have a winner on click cell using the defined rules from step 6
-  - game finished in a draw (all cells filled but no winner)
-  - display game status
-  - implement a reset button
-- step 8 (optional): multiplayer game
+  - add a button add the bottom of the gameboard which clears the board
+-step 10 (optional): multiplayer game
   - allow 2 users to join the game using [Meteor Users](http://docs.meteor.com/#/full/meteor_user)
   - tip: you might want to begin using the `Meteor.isServer()` block
   - assign a symbol to each user (X or O)
