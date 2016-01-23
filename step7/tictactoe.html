@@ -1,0 +1,23 @@
+<head>
+  <title>Welcome to the workshop tictactoe</title>
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <h1>Welcome to the workshop tictactoe</h1>
+  {{> gameboard}}
+</body>
+
+<template name="gameboard">
+  <h2>The current player is {{currentPlayer}}!</h2>
+
+  <div class="gameboard">
+    {{#each boxes}}
+      {{> box}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="box">
+  <div class="box {{#if disabled}} disabled {{/if}}">{{player}}</div>
+</template>

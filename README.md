@@ -83,9 +83,7 @@ In order to see the nice font as we used in the demo, add the following rule in 
 - step 6 disable clicking if box already filled
   - if statements can also be used in the html {{#if true}} {{/if}}
   - use this to show that it is not allowed to add a new symbol into a filled box.
-  - `disabled` is a class already defined in the css file. You can put this class on a box.
-
-  
+  - `disabled` is a class already defined in the css file. You can put this class on a box.  
 - step 7: determine game rules (when do we have 3 in a row)
   - using a Meteor Collection?
   - using a [plain javascript Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)?
@@ -93,6 +91,12 @@ In order to see the nice font as we used in the demo, add the following rule in 
   - using a [javascript object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer)?
   - any other nice way?
   - check every time a new symbol is added if there is a winning state
+  - put the winner on the session, so that other parts of the code can also know that there is a winner
+  - Log if there is a winner
+- step 8: Display gamestatus
+  - Display the winner above the board
+- step 9: reset button
+
 
 
 - step 7: game status
