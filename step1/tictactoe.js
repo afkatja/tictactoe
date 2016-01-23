@@ -8,6 +8,10 @@ if (Meteor.isClient) {
       console.log('Clicked the gameboard');
     }
   });
+
+  Template.gameboard.helpers({
+    // We need this later
+  });
 }
 
 if (Meteor.isServer) {

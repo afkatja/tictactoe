@@ -67,6 +67,8 @@ In order to see the nice font as we used in the demo, add the following rule in 
   - note about `this` which is always related to the context of where you are at this moment. Read more about `this` on [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)
 - step 4
   - display a value in the box
+  - set the player on the `Session` (TODO: link to session set and get). Make sure you have the player initialized on the Session
+  - when the player is set on the session you can also use it in other templates
   - Note that method within template is not directly available for template events, so you would want to make a separate helper function
   - Note that the property of one template is not directly available for other templates
   - You would want to use methods of the Meteor Collection `.update()` to set a property on an item and `.findOne()` to retrieve an item with the property

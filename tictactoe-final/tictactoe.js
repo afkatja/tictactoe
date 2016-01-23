@@ -118,9 +118,6 @@ if (Meteor.isClient) {
   });
 
   Template.box.helpers({
-    currentPlayer: function(){
-      return currentPlayer();
-    },
     disabled: function () {
       //if the cell is filled, we cannot click there anymore
       return this.player;

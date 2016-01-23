@@ -5,6 +5,12 @@ if (Meteor.isClient) {
     console.log('started up client');
   });
 
+  Template.gameboard.events({
+    click: function() {
+      console.log('Clicked the gameboard');
+    }
+  });
+
   Template.gameboard.helpers({
     boxes: function(){
       return CollectionBoxes.find({});

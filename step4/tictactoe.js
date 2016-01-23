@@ -1,54 +1,51 @@
-Boxes = new Meteor.Collection('boxes');
-
-
-var setCurrentPlayer = function(player) {
-  Session.set({'currentPlayer': player});
-};
-
-var getCurrentPlayer = function() {
-  return Session.get('currentPlayer');
-};
+CollectionBoxes = new Meteor.Collection('boxes');
 
 if (Meteor.isClient) {
+  Session.set({currentPlayer: 'X'});
+
+  var currentPlayer = function(){
+    return Session.get('currentPlayer');
+  };
 
   Meteor.startup(function(){
-    setCurrentPlayer('X');
-    console.log('Boce',Boxes.find().fetch());
+    console.log('started up client');
   });
 
-  Template.body.helpers({
-    symbol: getCurrentPlayer()
+  Template.gameboard.events({
+    click: function() {
+      console.log('Clicked the gameboard');
+    }
   });
 
   Template.gameboard.helpers({
-    boxes: function() {
-      return Boxes.find({}).fetch();
-    }
-  });
-
-  Template.box.helpers({
-    symbol: function() {
-      console.log('In the helper',Boxes.findOne(this._id));
-      return Boxes.findOne(this._id).symbol;
-    }
+    boxes: function(){
+      return CollectionBoxes.find({});
+    },
+    currentPlayer: currentPlayer
   });
 
   Template.box.events({
     click: function() {
-      console.log('LALA');
-      Boxes.update(this._id, {$set: {symbol: getCurrentPlayer()}});
+      console.log('Clicked box nr',this);
+      var player = currentPlayer();
+      CollectionBoxes.update(this._id, { $set: { player: player } });
+      console.log('The box after updating the Collection', CollectionBoxes.findOne(this._id));
     }
   });
 
 }
 
 if (Meteor.isServer) {
+
+  // executed on startup of the server
   Meteor.startup(function () {
-    Boxes.remove({});
+    //remove eventually collections
+    CollectionBoxes.remove({});
     //fill 9 cells
-    if(Boxes.find().count() === 0) {
+    if(CollectionBoxes.find().count() === 0) {
       for(var i = 0; i < 9; i++){
-        Boxes.insert({cellIndex: i});
+        CollectionBoxes.insert({boxIndex: i});
+        console.log('insert i',i);
       }
     }
   });
