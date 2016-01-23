@@ -80,7 +80,13 @@ In order to see the nice font as we used in the demo, add the following rule in 
   - after you added a symbol to a box switch the player
   - Determine whose turn it is (current player symbol)?
   - (optional) display some nice icon instead of X or O
-- step 6: determine game rules (when do we have 3 in a row)
+- step 6 disable clicking if box already filled
+  - if statements can also be used in the html {{#if true}} {{/if}}
+  - use this to show that it is not allowed to add a new symbol into a filled box.
+  - `disabled` is a class already defined in the css file. You can put this class on a box.
+
+  
+- step 7: determine game rules (when do we have 3 in a row)
   - using a Meteor Collection?
   - using a [plain javascript Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)?
   - using a [two-dimensional javascript Array](http://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript)?

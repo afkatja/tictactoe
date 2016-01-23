@@ -56,6 +56,11 @@ strong {
   cursor: not-allowed;
 }
 
+.box.disabled:active {
+  cursor: not-allowed;
+  color: red;
+}
+
 .reset-game {
   margin-top: 20px;
 }
