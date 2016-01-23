@@ -60,8 +60,18 @@ if (Meteor.isClient) {
     return Session.get('winner');
   };
 
-  Template.gameboard.events({
+  var resetGame = function() {
+    //Reset game: make all cells empty
+    var boxes = CollectionBoxes.find().fetch();
+    for(var i = 0; i < boxes.length; i++){
+      //remove player property from all cells
+      CollectionBoxes.update({_id: boxes[i]._id}, {$set: {player: null}});
+    }
+    Session.set('winner', null);
+  };
 
+  Template.gameboard.events({
+    'click .reset-game': resetGame
   });
 
   Template.gameboard.helpers({
