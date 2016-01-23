@@ -5,11 +5,12 @@
 
 <body>
   <h1>Welcome to the workshop tictactoe</h1>
-  <h2>Current Player is {{symbol}}!</h2>
   {{> gameboard}}
 </body>
 
 <template name="gameboard">
+  The current player is {{currentPlayer}}!
+
   <div class="gameboard">
     {{#each boxes}}
       {{> box}}
@@ -18,5 +19,5 @@
 </template>
 
 <template name="box">
-  <div class="box">{{symbol}}</div>
+  <div class="box">{{player}}</div>
 </template>

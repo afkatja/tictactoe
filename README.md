@@ -67,19 +67,18 @@ In order to see the nice font as we used in the demo, add the following rule in 
   - note about `this` which is always related to the context of where you are at this moment. Read more about `this` on [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)
 - step 4
   - display a value in the box
-  - set the player on the `Session` (TODO: link to session set and get). Make sure you have the player initialized on the Session
+  - set the player on the `Session` [Session](http://docs.meteor.com/#/full/session). Make sure you have the player initialized on the Session
+  - Session is independent of templates or events and it has to live in the Client
   - when the player is set on the session you can also use it in other templates
   - Note that method within template is not directly available for template events, so you would want to make a separate helper function
   - Note that the property of one template is not directly available for other templates
   - You would want to use methods of the Meteor Collection `.update()` to set a property on an item and `.findOne()` to retrieve an item with the property
   - a way to retrieve a property is `Object.property` or `Object['property']`
 - step 5
-  - only add a symbol to a box if it is empty (link to if statements in js)
-  - then only change the player if you have added a symbol to the gameboard
   - change the current Player between 'X' and 'O' every time you click in a box
-  - display X or O depending on the current player symbol using [Session](http://docs.meteor.com/#/full/session) variable
-  - Session is independent of templates or events and it has to live in the Client
-  - Determine whose turn is it now (current player symbol)?
+  - only add a symbol to a box if it is empty (link to if statements in js)
+  - after you added a symbol to a box switch the player
+  - Determine whose turn it is (current player symbol)?
   - (optional) display some nice icon instead of X or O
 - step 6: determine game rules (when do we have 3 in a row)
   - using a Meteor Collection?

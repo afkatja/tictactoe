@@ -7,10 +7,10 @@ if (Meteor.isClient) {
     return Session.get('currentPlayer');
   };
 
-  function setNextPlayer(){
+  var setNextPlayer = function(){
     if(currentPlayer() == 'X') Session.set({currentPlayer: 'O'});
     else Session.set({currentPlayer: 'X'});
-  }
+  };
 
   var winningCombos = [ // patterns for winning line-ups
     [0, 1, 2],
