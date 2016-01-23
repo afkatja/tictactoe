@@ -26,23 +26,23 @@ if (Meteor.isClient) {
   var winningEndTimeout,
       weHaveAWinner = false;
 
-  function getSymbolInCell(cellIndex){
+  var getSymbolInCell = function(cellIndex){
     var matchingCell = Cells.findOne({cellIndex: cellIndex});
     if(matchingCell) {
       return matchingCell.player;
     }
-  }
+  };
 
-  function match(symbols, currentPlayerSymbol) {
+  var match = function(symbols, currentPlayerSymbol) {
     for(var x = 0; x < symbols.length; x++){
       if (symbols[x] != currentPlayerSymbol )
         return false;
     }
 
     return true;
-  }
+  };
 
-  function hasWon(currentPlayerSymbol){
+  var hasWon = function(currentPlayerSymbol){
     for(var x = 0; x < winningCombos.length; x++){
       var combo = winningCombos[x];
       var symbols = combo.map(getSymbolInCell);
@@ -52,9 +52,9 @@ if (Meteor.isClient) {
     }
     // no combo matched means no winner (yet)
     return false;
-  }
+  };
 
-  function resetGame(){
+  var resetGame = function(){
     //Reset game: make all cells empty
     var cells = Cells.find().fetch();
     for(var i = 0; i < cells.length; i++){
@@ -63,24 +63,24 @@ if (Meteor.isClient) {
     }
     Session.set('winner', null);
     clearTimeout(winningEndTimeout);
-  }
+  };
 
-  function setCurrentWinner() {
+  var setCurrentWinner = function() {
     Session.set('winner', currentPlayer());
     resetGameTimeout();
-  }
+  };
 
-  function getCurrentWinner(){
+  var getCurrentWinner = function(){
     return Session.get('winner');
-  }
+  };
 
-  function resetGameTimeout () {
+  var resetGameTimeout = function() {
     if(getCurrentWinner()) {
       winningEndTimeout = setTimeout(function(){
         resetGame();
       }, 5000);
     }
-  }
+  };
 
   Template.gameboard.onRendered(resetGame);
 
