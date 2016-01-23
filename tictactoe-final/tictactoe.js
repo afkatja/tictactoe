@@ -1,7 +1,7 @@
 Cells = new Meteor.Collection('cells');
 
 if (Meteor.isClient) {
-    Session.set({currentPlayer: 'X'});
+  Session.set({currentPlayer: 'X'});
 
   var currentPlayer = function(){
     return Session.get('currentPlayer');
