@@ -10,7 +10,7 @@ if (Meteor.isClient) {
       console.log('Clicked the gameboard');
     }
   });
-  
+
   Template.gameboard.helpers({
     boxes: function(){
       return CollectionBoxes.find({});

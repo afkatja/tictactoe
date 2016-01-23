@@ -1,4 +1,4 @@
-Boxes = new Meteor.Collection('boxes');
+CollectionBoxes = new Meteor.Collection('boxes');
 
 if (Meteor.isClient) {
   Meteor.startup(function(){
@@ -7,24 +7,28 @@ if (Meteor.isClient) {
 
   Template.gameboard.helpers({
     boxes: function(){
-      return Boxes.find({});
+      return CollectionBoxes.find({});
     }
   });
 
-  Template.gameboard.events({
+  Template.box.events({
     click: function() {
-      console.log('Click', this);
+      console.log('Clicked box nr',this);
     }
   });
 }
 
 if (Meteor.isServer) {
-  Meteor.startup(function () {
 
+  // executed on startup of the server
+  Meteor.startup(function () {
+    //remove eventually collections
+    CollectionBoxes.remove({});
     //fill 9 cells
-    if(Boxes.find().count() === 0) {
+    if(CollectionBoxes.find().count() === 0) {
       for(var i = 0; i < 9; i++){
-        Boxes.insert({cellIndex: i});
+        CollectionBoxes.insert({boxIndex: i});
+        console.log('insert i',i);
       }
     }
   });

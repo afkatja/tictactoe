@@ -45,7 +45,9 @@ In order to see the nice font as we used in the demo, add the following rule in 
   - you can add `<div class="box"></div>` into the `gameboard` div
   - The js code is not doing a lot. Server and Client part(TODO: Link to it) The most part we will do today will be on the client.
   - There are event and helper function for every template that is made in the html. The hello template is not there anymore. Change the functions so that the new templates are used.
+  - read about template events in [the documentation](http://docs.meteor.com/#/full/template_events)
   - Tip: with F12 you can open the developers tools of your browser. And if you use console.log (TODO: Link to console.log) in the js file you can print to the console.
+  - try to display something in the browser's console by `console.log()` (You can then open the browser's console by right clicking on the page and selecting `Inspect` - it looks like this) ![console](https://developer.chrome.com/devtools/docs/console-files/log-element.png)
 - step 2: display the grid (3 x 3)
   - there is only one box on our gameboard. For tictactoe we need 9 of them. But we don't want to write 9 divs in our code.
   - you probably want to use a loop in order to create a scalable application, like this:
@@ -58,13 +60,10 @@ In order to see the nice font as we used in the demo, add the following rule in 
   - make sure you register this collection in the server part of the code. Can you predict / test what happens if you register the collection on the client side?
   - Create a new template 'box' which should be included in the gameboard.
   - use css classname `class="box"` for each box to take advantage of the provided styling (tictactoe.css)
-  
+  - now try to display the box's index in the console; to do this, you need the special object of javascript called `this`
 - step 3
   - register the click event on a box element by using an event handler for its template
-  - read about template events in [the documentation](http://docs.meteor.com/#/full/template_events)
   - the notation is `{ key: value }`
-  - try to display something in the browser's console by `console.log()` (You can then open the browser's console by right clicking on the page and selecting `Inspect` - it looks like this) ![console](https://developer.chrome.com/devtools/docs/console-files/log-element.png)
-  - now try to display the box's index in the console; to do this, you need the special object of javascript called `this`
   - note about `this` which is always related to the context of where you are at this moment. Read more about `this` on [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)
 - step 4
   - display a value in the box
