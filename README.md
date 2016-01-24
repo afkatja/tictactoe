@@ -40,20 +40,20 @@ In order to see the nice font as we used in the demo, add the following rule in 
   - change some things in the code and see what happens
 - step 1: setup the Tic tac toe project
   - copy the content of the css in the css file generated in your folder
+  - Notice that you don't have to update your browser. Meteor does that for you automagically
   - you can rename the template in your `.html` file, for example `<template name="gameboard"></template>` instead of the `hello` template
   - begin with `<div class="gameboard"></div>` in this template(Now you should see a nice green schoolboard)
   - you can add `<div class="box"></div>` into the `gameboard` div
-  - The js code is not doing a lot. Server and Client part(TODO: Link to it) The most part we will do today will be on the client.
-  - There are event and helper function for every template that is made in the html. The hello template is not there anymore. Change the functions so that the new templates are used.
-  - read about template events in [the documentation](http://docs.meteor.com/#/full/template_events)
   - Tip: with F12 you can open the developers tools of your browser. And if you use console.log (TODO: Link to console.log) in the js file you can print to the console.
-  - try to display something in the browser's console by `console.log()` (You can then open the browser's console by right clicking on the page and selecting `Inspect` - it looks like this) ![console](https://developer.chrome.com/devtools/docs/console-files/log-element.png)
 - step 2: display the grid (3 x 3)
   - there is only one box on our gameboard. For tictactoe we need 9 of them. But we don't want to write 9 divs in our code.
   - you probably want to use a loop in order to create a scalable application, like this:
   ```javascript
   for(var i = 0; i < CellsCount; i++){}
     ```
+  - The js code is not doing a lot. Server and Client part(TODO: Link to it) The most part we will do today will be on the client.
+  - There are event and helper function for every template that is made in the html. The hello template is not there anymore. Change the functions so that the new templates are used.
+  - read about template events in [the documentation](http://docs.meteor.com/#/full/template_events)
   - And you need a place to store all the boxes. You can use for example, [Mongo Collection](http://docs.meteor.com/#/full/mongo_collection)
   - you can follow the steps explained in [Meteor tutorial](https://www.meteor.com/tutorials/blaze/templates). Instead of tasks from the tutorial, we want to make boxes
   - You would want to update the collection only once
@@ -61,6 +61,7 @@ In order to see the nice font as we used in the demo, add the following rule in 
   - Create a new template 'box' which should be included in the gameboard.
   - use css classname `class="box"` for each box to take advantage of the provided styling (tictactoe.css)
   - now try to display the box's index in the console; to do this, you need the special object of javascript called `this`
+  - TIP: try to display something in the browser's console by `console.log()` (You can then open the browser's console by right clicking on the page and selecting `Inspect` - it looks like this) ![console](https://developer.chrome.com/devtools/docs/console-files/log-element.png)
 - step 3
   - register the click event on a box element by using an event handler for its template
   - the notation is `{ key: value }`
