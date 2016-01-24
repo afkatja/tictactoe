@@ -14,6 +14,14 @@ Template.mainnav.events({
   }
 });
 
+Template.navItem.helpers({
+  activeClass: function () {
+    if(this == currentStep.get()){
+      return 'active';
+    }
+  }
+});
+
 Template.index.helpers({
   tab: function () {
     return currentStep.get();
