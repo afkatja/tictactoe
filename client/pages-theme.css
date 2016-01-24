@@ -24,3 +24,22 @@ h1 {
 code, pre, .code {
   font-family: 'Inconsolata', monospace;
 }
+
+.list-plain {
+  list-style: none;
+  padding: 0;
+}
+
+.horizontal {
+  display: flex;
+}
+
+.horizontal li + li {
+  margin-left: 10px;
+  padding-left: 10px;
+  border-left: 1px solid #fff;
+}
+
+a {
+  color: #fff;
+}

@@ -1,0 +1,56 @@
+<head>
+  <meta charset="UTF-8">
+  <title>Tictactoe workshop</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic|Inconsolata|Amatic+SC:400,700">
+  <link rel="stylesheet" href="pages-theme.css" type="text/css">
+</head>
+<body>
+  <div class="container">
+    {{> index}}
+  </div>
+  <footer>Colofon & contact</footer>
+</body>
+
+<template name="index">
+  {{> mainnav}}
+  {{> Template.dynamic template=tab data=tabData}}
+</template>
+
+<template name="mainnav">
+  <nav class="main-nav">
+    <ul class="list-plain horizontal">
+      {{#each routes}}
+        {{> navItem this}}
+      {{/each}}
+    </ul>
+  </nav>
+</template>
+
+<template name="navItem">
+  <li><button type="button">{{this}}</button></li>
+</template>
+
+<template name="start">
+  <h1>Welcome</h1>
+</template>
+<template name="slides">
+  <h1>The introduction to Meteor slides</h1>
+  <embed type="application/pdf" src="GIRL CODE- meteor.pdf" width="800px" height="510px">
+</template>
+
+<template name="step0">
+  <h1>Preliminary steps</h1>
+  <p>Install and run Meteor</p>
+</template>
+<template name="step1">
+  <h1>Edit the template and use he provided styling</h1>
+  <p>Open <code>index.html</code>. You can rename the template here, for example <code>&lt;template name="gameboard"&gt;&lt;/template&gt;</code> instead of the <code>hello</code> template</p>
+  <p>begin with <code>&lt;div class="gameboard"&gt;&lt;/div&gt;</code> (Now you should see a nice green schoolboard)</p>
+  <p>you can add <code>&lt;div class="box"&gt;&lt;/div&gt;</code> into the <code>gameboard</code> in your template</p>
+</template>
+<template name="step2"></template>
+<template name="step3"></template>
+<template name="step4"></template>
+<template name="step5"></template>
+<template name="step6"></template>
+<template name="step7"></template>
