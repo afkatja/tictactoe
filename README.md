@@ -77,17 +77,17 @@ step 3: link the Box collection to the html
   - Note that the property of one template is not directly available for other templates
   - You would want to use methods of the Meteor Collection `.update()` to set a property on an item and `.findOne()` to retrieve an item with the property
   - a way to retrieve a property is `Object.property` or `Object['property']`
-- step 6:
+- step 6: Switch between 'X' and 'O'
   - change the current Player between 'X' and 'O' every time you click in a box
   - only add a symbol to a box if it is empty (link to if statements in js)
   - after you added a symbol to a box switch the player
   - Determine whose turn it is (current player symbol)?
   - (optional) display some nice icon instead of X or O
-- step 6 disable clicking if box already filled
+- step 7: Disable clicking if box already filled
   - if statements can also be used in the html {{#if true}} {{/if}}
   - use this to show that it is not allowed to add a new symbol into a filled box.
   - `disabled` is a class already defined in the css file. You can put this class on a box.  
-- step 7: determine game rules (when do we have 3 in a row)
+- step 8: determine game rules (when do we have 3 in a row)
   - using a Meteor Collection?
   - using a [plain javascript Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)?
   - using a [two-dimensional javascript Array](http://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript)?
@@ -96,12 +96,12 @@ step 3: link the Box collection to the html
   - check every time a new symbol is added if there is a winning state
   - put the winner on the session, so that other parts of the code can also know that there is a winner
   - Log if there is a winner
-- step 8: Display gamestatus
+- step 9: Display gamestatus
   - Display the winner above the board
   - also make sure that you cannot add a symbol anymore when there is a winner
-- step 9: reset button
+- step 10: reset button
   - add a button add the bottom of the gameboard which clears the board
--step 10 (optional): multiplayer game
+-step 11 (optional): multiplayer game
   - use a timeout to reset the game
   - allow 2 users to join the game using [Meteor Users](http://docs.meteor.com/#/full/meteor_user)
   - tip: you might want to begin using the `Meteor.isServer()` block
