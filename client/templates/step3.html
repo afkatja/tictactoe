@@ -1,1 +1,17 @@
-<template name="step3"></template>
+<template name="step3">
+  <h1>Display the boxes from the Collection</h1>
+  <p>In this step, we will link javascript and html together. We already saw this syntax in our <code>html</code>:</p>
+  {{#prism language="handlebars"}}
+    &#123;&#123;&gt; hello&#125;&#125;
+  {{/prism}}
+  <p>The use of double-curly braces is called <code>spacebars</code> syntax and is a way of referencing templates or javascript objects in your <code>html</code>.</p>
+  <blockquote cite="http://meteortips.com/first-meteor-tutorial/templates/">
+    ... Spacebars is the syntax we use in our HTML when we want something dynamic to occur. It’s the syntax that bridges the gap between the interface and the application logic.
+  </blockquote>
+  <p>Let's look at our javascript code, the client side. In <code>html</code>, we had the <code>template</code> with the <code>name</code> "hello". We referenced it in javascript like this:</p>
+  {{#prism language="javascript" class="line-numbers"}}
+    Template.hello
+  {{/prism}}
+  <p>You can read more about templates in Meteor <a href="https://www.discovermeteor.com/blog/a-guide-to-meteor-templates-data-contexts/">on this blog</a> where you can find a lot more articles about Meteor</p>
+  <p>There are events and helpers objects for every template that is made in the html. The <code>hello</code> template is not there anymore. Now you can change the functions so that the new templates are used.</p>
+</template>

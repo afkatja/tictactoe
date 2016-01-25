@@ -27,6 +27,10 @@ code, pre, .code {
   color: #ccc;
 }
 
+pre[class*=language] {
+  overflow: hidden;
+}
+
 .list-plain {
   list-style: none;
   padding: 0;
@@ -47,10 +51,20 @@ nav.main-nav {
 }
 nav.main-nav li.active button {
   box-shadow: 1px 1px 5px rgba(0,0,0, .5) inset;
+  color: #004d40;
 }
 a {
   color: #fff;
   border-bottom: 1px solid;
+}
+
+img {
+  margin: 5px;
+}
+
+blockquote {
+  border-color: #26a69a;
+  color: #ccc;
 }
 
 .slides {
