@@ -16,7 +16,7 @@ Template.mainnav.events({
 
 Template.navItem.helpers({
   activeClass: function () {
-    if(this == currentStep.get()){
+    if(this.toString() == currentStep.get()){
       return 'active';
     }
   }
