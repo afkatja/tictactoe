@@ -14,4 +14,10 @@
   {{/prism}}
   <p>You can read more about templates in Meteor <a href="https://www.discovermeteor.com/blog/a-guide-to-meteor-templates-data-contexts/">on this blog</a> where you can find a lot more articles about Meteor</p>
   <p>There are events and helpers objects for every template that is made in the html. The <code>hello</code> template is not there anymore. Now you can change the functions so that the new templates are used.</p>
+  <p>create a box template and include it into the gamboard template just like the gameboard is included into the body of the html</p>
+  <p>wrap the box into a {{# each boxes}} function to loop over the boxes</p>
+  <p>see the task example given on the meteor page <a href="https://www.meteor.com/tutorials/blaze/templates">task tutorial - templates</a> to get an idea how to do that</p>
+  <p>in the js code add a helper function 'boxes' which should return the whole boxes collection Boxes.find({}) will do the trick</p>
+  <p>In the collection step of the <a href="https://www.meteor.com/tutorials/blaze/collections">task tutorial - collections</a> you can see how a function is added to the template helpers</p>
+  <p>can you display the index of a box in the box itself?</p>
 </template>
