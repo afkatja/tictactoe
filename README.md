@@ -35,47 +35,49 @@ In order to see the nice font as we used in the demo, add the following rule in 
 
 ## Workshop steps
 - step 0:
-  - install Meteor and test locally (TODO: link toevoegen naar meteor of anders de stappen)
-  - follow the instructions and run it.
-  - change some things in the code and see what happens
+  - install Meteor and create a new project called tictactoe
+  - look at the files that are generated and chang some things to see what happens in the browser
 - step 1: setup the Tic tac toe project
   - copy the content of the css in the css file generated in your folder
+  - a new project will include three new files: <project-name>.html, <project-name>.css and <project-name>.js
   - Notice that you don't have to update your browser. Meteor does that for you automagically
   - you can rename the template in your `.html` file, for example `<template name="gameboard"></template>` instead of the `hello` template
   - begin with `<div class="gameboard"></div>` in this template(Now you should see a nice green schoolboard)
   - you can add `<div class="box"></div>` into the `gameboard` div
-  - Tip: with F12 you can open the developers tools of your browser. And if you use console.log (TODO: Link to console.log) in the js file you can print to the console.
-- step 2: display the grid (3 x 3)
+- step 2: create a Boxes collection
   - there is only one box on our gameboard. For tictactoe we need 9 of them. But we don't want to write 9 divs in our code.
   - you probably want to use a loop in order to create a scalable application, like this:
   ```javascript
-  for(var i = 0; i < CellsCount; i++){}
+  for(var i = 0; i < Boxes.find().count(); i++){}
     ```
-  - The js code is not doing a lot. Server and Client part(TODO: Link to it) The most part we will do today will be on the client.
-  - There are event and helper function for every template that is made in the html. The hello template is not there anymore. Change the functions so that the new templates are used.
-  - read about template events in [the documentation](http://docs.meteor.com/#/full/template_events)
-  - And you need a place to store all the boxes. You can use for example, [Mongo Collection](http://docs.meteor.com/#/full/mongo_collection)
-  - you can follow the steps explained in [Meteor tutorial](https://www.meteor.com/tutorials/blaze/templates). Instead of tasks from the tutorial, we want to make boxes
-  - You would want to update the collection only once
-  - make sure you register this collection in the server part of the code. Can you predict / test what happens if you register the collection on the client side?
-  - Create a new template 'box' which should be included in the gameboard.
-  - use css classname `class="box"` for each box to take advantage of the provided styling (tictactoe.css)
-  - now try to display the box's index in the console; to do this, you need the special object of javascript called `this`
+  - In the js code create a Mongo collection as it is described [here](http://docs.meteor.com/#/full/mongo_collection).
+  - In the server code you can fill the collection. Add an object with a boxIndex to it. (code snippet)
+  - we add it to the server code so that it is only exectud once.
+  - log to console everytime you add a new item into the collection.
   - TIP: try to display something in the browser's console by `console.log()` (You can then open the browser's console by right clicking on the page and selecting `Inspect` - it looks like this) ![console](https://developer.chrome.com/devtools/docs/console-files/log-element.png)
-- step 3
-  - register the click event on a box element by using an event handler for its template
-  - the notation is `{ key: value }`
+step 3: link the Box collection to the html
+  - create a box template and include it into the gamboard template just like the gameboard is included into the body of the html
+  - wrap the box into a {{# each boxes}} function to loop over the boxes
+  - see the task example given on the meteor page [task tutorial - templates](https://www.meteor.com/tutorials/blaze/templates) to get an idea how to do that
+  - in the js code add a helper function 'boxes' which should return the whole boxes collection Boxes.find({}) will do the trick
+  - In the collection step of the [task tutorial - collections](https://www.meteor.com/tutorials/blaze/collections) you can see how a function is added to the template helpers
+  - can you display the index of a box in the box itself?
+- step 4: Register the click event
+  - register the click event on a box element by using the template events
+  - read about template events in [the documentation](http://docs.meteor.com/#/full/template_events)
+  - log to the console which box you have clicked
+  - you can access a box whitin the template events easily with the this command
   - note about `this` which is always related to the context of where you are at this moment. Read more about `this` on [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)
-- step 4
-  - display a value in the box
-  - set the player on the `Session` [Session](http://docs.meteor.com/#/full/session). Make sure you have the player initialized on the Session
+- step 5: Display an x when you click on it
+  - display an 'X' in the box
+  - set the player on the `Session` [Session](http://docs.meteor.com/#/full/session). Set the player to 'X'
   - Session is independent of templates or events and it has to live in the Client
   - when the player is set on the session you can also use it in other templates
   - Note that method within template is not directly available for template events, so you would want to make a separate helper function
   - Note that the property of one template is not directly available for other templates
   - You would want to use methods of the Meteor Collection `.update()` to set a property on an item and `.findOne()` to retrieve an item with the property
   - a way to retrieve a property is `Object.property` or `Object['property']`
-- step 5
+- step 6:
   - change the current Player between 'X' and 'O' every time you click in a box
   - only add a symbol to a box if it is empty (link to if statements in js)
   - after you added a symbol to a box switch the player
@@ -100,6 +102,7 @@ In order to see the nice font as we used in the demo, add the following rule in 
 - step 9: reset button
   - add a button add the bottom of the gameboard which clears the board
 -step 10 (optional): multiplayer game
+  - use a timeout to reset the game
   - allow 2 users to join the game using [Meteor Users](http://docs.meteor.com/#/full/meteor_user)
   - tip: you might want to begin using the `Meteor.isServer()` block
   - assign a symbol to each user (X or O)
