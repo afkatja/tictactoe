@@ -1,35 +1,25 @@
 html, body {
   height: 100%;
+  font-size: 16px;
 }
 body {
   display: flex;
   flex-direction: column;
-  background: url(http://images.designtrends.com/wp-content/uploads/2015/12/22100209/Green-Chalkboard-Texture.jpg) 0 0 no-repeat;
-  background-size: cover;
+  background: url(/chalkboard.jpg) 0 0 repeat;
   color: #fff;
   margin: 0;
   font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
   min-height: 100vh;
   align-items: center;
 }
 
-.container {
+.page-container {
   flex: 1 0 auto;
   width: 90vw;
 }
 
 h1 {
   font-family: 'Amatic SC', cursive;
-  font-size: 2rem;
-}
-
-h2 {
-  font-size: 1.6rem;
-}
-
-p, a {
-  font-size: 1rem;
 }
 
 code, pre, .code {
