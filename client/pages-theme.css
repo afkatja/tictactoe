@@ -50,6 +50,7 @@ nav.main-nav li.active button {
 }
 a {
   color: #fff;
+  border-bottom: 1px solid;
 }
 
 .slides {

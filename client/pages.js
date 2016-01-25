@@ -1,4 +1,4 @@
-var routes = ['start', 'slides', 'step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7'];
+var routes = ['slides', 'start', 'step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7'];
 var currentStep = new ReactiveVar('start');
 
 Template.mainnav.helpers({
