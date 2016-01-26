@@ -1,5 +1,10 @@
 var routes = ['slides', 'start', 'step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7'];
+var steps = ['step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7'];
 var currentStep = new ReactiveVar('start');
+
+UI.registerHelper('addOne', function(value) {
+  return value + 1;
+});
 
 Template.mainnav.helpers({
   routes: function(){
@@ -19,6 +24,30 @@ Template.navItem.helpers({
     if(this.toString() == currentStep.get()){
       return 'active';
     }
+  }
+});
+
+Template.pagination.helpers({
+  steps: function(){
+    return steps;
+  },
+  activeClass: function () {
+    if(this.toString() == currentStep.get()){
+      return 'active';
+    }
+  }/*,
+  page: function () {
+    console.log(this, this.index);
+    if(this == steps[0]) {
+      return 'start';
+    }
+    return 'step ' + steps[this.index];
+  }*/
+});
+
+Template.pagination.events({
+  'click li button': function(e){
+    console.log(e.target, this.toString());
   }
 });
 
