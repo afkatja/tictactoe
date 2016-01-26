@@ -1,0 +1,30 @@
+<template name="step4">
+  <h1>Click on the box</h1>
+  <p>In this step, we will register the click event on the box.</p>
+  <h2>Template events</h2>
+  <p>We will be using the template events. You can read about template events in the <a href="http://docs.meteor.com/#/full/template_events">documentation</a></p>
+  <p>Your code should begin with:</p>
+  {{#prism language="javascript" class="line-numbers"}}
+    Template.box.events({
+      click: function(){
+        //do something here
+      }
+    });
+  {{/prism}}
+  <p>Try to display in the console which box you have clicked either by referencing the event target or by using the <code>this</code> keyword.</p>
+  <p><code>This</code> is always related to the context of where you are at this moment. Read more about this on <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this">MDN</a></p>
+
+  <h2>This is an example setup</h2>
+  {{#prism language="javascript" class="line-numbers"}}
+    &lt;button class=&quot;test&quot;&gt;Test&lt;/button&gt;
+
+    Template.test.events({
+      &apos;click .test&apos;: function(event){
+        console.log(event, this);
+      }
+    });
+  {{/prism}}
+  <p>This what the above code does: <img src="/console.png"></p>
+  <p>We don't have anything inside this button, so <code>this</code> gives us an empty Object.</p>
+  {{> summary}}
+</template>

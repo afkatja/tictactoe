@@ -51,4 +51,9 @@
   <p>You can see the <a href="https://www.meteor.com/tutorials/blaze/templates">example</a> given on the meteor introduction page to get an idea how to do that.</p>
 
   <p>Can you display the index of a box in the box itself? Tip: remember, when populating the <code>Boxes</code> collection, we added a property called <code>boxIndex</code> to each box? You can acces this property directly in your html.</p>
+  
+  {{> summary}}
+  <p>After creating a template, we need to manually include it within the interface.</p>
+  <p>By creating helper functions, we can execute code from within a template, which means we are creating a dynamic interface. </p>
+  <p>If a helper function returns an array of data or a Collection, we can loop through that data from within a template using the <code>each</code> syntax.</p>
 </template>

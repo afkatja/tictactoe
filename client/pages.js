@@ -32,7 +32,7 @@ Template.pagination.helpers({
     return steps;
   },
   activeClass: function () {
-    if(this.toString() == currentStep.get()){
+    if(this.toString() == currentStep.get().toString()){
       return 'active';
     }
   }/*,
@@ -47,7 +47,8 @@ Template.pagination.helpers({
 
 Template.pagination.events({
   'click li button': function(e){
-    console.log(e.target, this.toString());
+    console.log(this.toString());
+    currentStep.set(this);
   }
 });
 

@@ -26,6 +26,9 @@ code, pre, .code {
 pre[class*=language] {
   overflow: hidden;
 }
+pre[class*=language] .line-highlight {
+  display: none;
+}
 
 .list-plain {
   list-style: none;
@@ -36,22 +39,39 @@ pre[class*=language] {
   display: flex;
 }
 
-.horizontal li + li {
-  margin-left: 10px;
-  padding-left: 10px;
-  border-left: 1px solid #fff;
-}
 nav.main-nav {
   background: none;
   box-shadow: none;
 }
-nav.main-nav li.active button {
+nav.main-nav li.active button,
+.pagination li.active button {
   box-shadow: 1px 1px 5px rgba(0,0,0, .5) inset;
   color: #004d40;
+}
+.btn {
+  text-transform: none;
+  padding: 0 10px;
 }
 a {
   color: #fff;
   border-bottom: 1px solid;
+}
+.pagination,
+.main-nav ul {
+  justify-content: space-between;
+  padding: 20px 0;
+}
+.pagination li {
+  padding-right: 0;
+}
+.pagination li.active {
+  background: none;
+}
+.pagination button {
+  background: #26a69a;
+  border: none;
+  box-shadow: none;
+  border-radius: 3px;
 }
 
 img {
