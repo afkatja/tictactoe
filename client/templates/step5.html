@@ -1,0 +1,38 @@
+<template name="step5">
+  <h1>Display an X</h1>
+  <p>In this step, we will use the click event we registered in the previous step to display a value in our interface.</p>
+  <h2>Session</h2>
+  <p>We will use Meter's <a href="http://docs.meteor.com/#/full/session">Session</a></p>
+  <blockquote cite="http://meteortips.com/first-meteor-tutorial/sessions/">
+    ...sessions allow us to store small pieces of data that is not saved to the database and and won’t be remembered on return visits
+  </blockquote>
+  <p>The syntax is simple:</p>
+  {{#prism language="javascript" class="line-numbers"}}
+    Session.set(name, value);
+  {{/prism}}
+
+  <p>The name of the session (must be a <code>string</code>) will be used for reference, like this:</p>
+  {{#prism language="javascript" class="line-numbers"}}
+    Session.get(name);
+  {{/prism}}
+  <p>Session is independent of templates or events and it has to live in the Client.</p>
+  <p>When a Session variable is set in a template, you can also use it in other templates.</p>
+  <h2>Click to get the Session variable</h2>
+  <p>We already know how to register an event on a template. Now instead of displaying a value in console, we want to display it directly in our box (where we clicked).</p>
+  <p>Now we have to display the value we assigned to the session.</p>
+  
+  <p>Your code for the <code>box</code> template should look like this:</p>
+  {{#prism language="javascript" class="line-numbers"}}
+    Template.box.helpers({
+      player: function(){
+        return Session.get('player');
+      }
+    });
+
+    Template.box.events({
+      'click': function(){
+        return Session.set('player', 'X');
+      }
+    });
+  {{/prism}}
+</template>
