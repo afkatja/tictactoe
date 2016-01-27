@@ -14,24 +14,24 @@ if (Meteor.isClient) {
   var hasWon = function() {
     var boxes = Boxes.find().fetch();
     var player = Session.get('player');
-    console.log(boxes, player);
+
     //we have a winner in a row
-    if (boxes[0].player == player && boxes[1] == player && boxes[2] == player) return true;
-    if (boxes[3].player == player && boxes[4] == player && boxes[5] == player) return true;
-    if (boxes[6].player == player && boxes[7] == player && boxes[8] == player) return true;
+    if (boxes[0].player == player && boxes[1].player == player && boxes[2].player == player) return true;
+    if (boxes[3].player == player && boxes[4].player == player && boxes[5].player == player) return true;
+    if (boxes[6].player == player && boxes[7].player == player && boxes[8].player == player) return true;
 
     //we have a winner in a column
-    if (boxes[0].player == player && boxes[3] == player && boxes[6] == player) return true;
-    if (boxes[1].player == player && boxes[4] == player && boxes[7] == player) return true;
-    if (boxes[2].player == player && boxes[5] == player && boxes[8] == player) return true;
+    if (boxes[0].player == player && boxes[3].player == player && boxes[6].player == player) return true;
+    if (boxes[1].player == player && boxes[4].player == player && boxes[7].player == player) return true;
+    if (boxes[2].player == player && boxes[5].player == player && boxes[8].player == player) return true;
 
     //we have a winner in diagonal
-    if (boxes[0].player == player && boxes[4] == player && boxes[8] == player) return true;
-    if (boxes[2].player == player && boxes[4] == player && boxes[6] == player) return true;
+    if (boxes[2].player == player && boxes[4].player == player && boxes[6].player == player) return true;
+    if (boxes[0].player == player && boxes[4].player == player && boxes[8].player == player) return true;
 
     //no winner, no joy
     return false;
-  }
+  };
 
   var resetGame = function(){
     //Reset game: make all boxes empty
@@ -71,7 +71,6 @@ if (Meteor.isClient) {
       if(boxFilled || Session.get('winner')) { return; }
       // is the box is empty, fill it with current player
       Boxes.update(this._id, { $set: { player: Session.get('player') } });
-      console.log(hasWon());
       if(hasWon()) {
         Session.set('winner', Session.get('player'));
       } else {
