@@ -11,14 +11,14 @@ Install the latest official Meteor release from your terminal:
 $ curl https://install.meteor.com/ | sh
 ```
 
-Once Meteor is installed, run the following code in your Terminal:
+Once Meteor is installed, run the following code in your Terminal (for mac or Linux users) or the command prompt (for Windows users):
 ```sh
 $ mkdir Projects
 $ cd Projects
 $ meteor create tictactoe
 ```
 
-The, run the project from your terminal:
+Then, run the project from your terminal / command prompt:
 ``` sh
 $ cd tictactoe
 $ meteor
