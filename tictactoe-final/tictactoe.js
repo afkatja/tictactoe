@@ -1,99 +1,62 @@
-Cells = new Meteor.Collection('cells');
+Boxes = new Meteor.Collection('boxes');
 
 if (Meteor.isClient) {
-  Session.set({currentPlayer: 'X'});
-
-  var currentPlayer = function(){
-    return Session.get('currentPlayer');
-  };
+  Session.set('player', 'X');
 
   var setNextPlayer = function(){
-    if(currentPlayer() == 'X') Session.set({currentPlayer: 'O'});
-    else Session.set({currentPlayer: 'X'});
-  };
-
-  var winningCombos = [ // patterns for winning line-ups
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ];
-
-  var winningEndTimeout,
-      weHaveAWinner = false;
-
-  var getSymbolInCell = function(cellIndex){
-    var matchingCell = Cells.findOne({cellIndex: cellIndex});
-    if(matchingCell) {
-      return matchingCell.player;
+    if (Session.get('player') == 'X') {
+      Session.set('player', 'O');
+    } else {
+      Session.set('player', 'X');
     }
   };
 
-  var match = function(symbols, currentPlayerSymbol) {
-    for(var x = 0; x < symbols.length; x++){
-      if (symbols[x] != currentPlayerSymbol )
-        return false;
-    }
+  var hasWon = function() {
+    var boxes = Boxes.find().fetch();
+    var player = Session.get('player');
+    console.log(boxes, player);
+    //we have a winner in a row
+    if (boxes[0].player == player && boxes[1] == player && boxes[2] == player) return true;
+    if (boxes[3].player == player && boxes[4] == player && boxes[5] == player) return true;
+    if (boxes[6].player == player && boxes[7] == player && boxes[8] == player) return true;
 
-    return true;
-  };
+    //we have a winner in a column
+    if (boxes[0].player == player && boxes[3] == player && boxes[6] == player) return true;
+    if (boxes[1].player == player && boxes[4] == player && boxes[7] == player) return true;
+    if (boxes[2].player == player && boxes[5] == player && boxes[8] == player) return true;
 
-  var hasWon = function(currentPlayerSymbol){
-    for(var x = 0; x < winningCombos.length; x++){
-      var combo = winningCombos[x];
-      var symbols = combo.map(getSymbolInCell);
-      if(match(symbols, currentPlayerSymbol)) {
-        return true;
-      }
-    }
-    // no combo matched means no winner (yet)
+    //we have a winner in diagonal
+    if (boxes[0].player == player && boxes[4] == player && boxes[8] == player) return true;
+    if (boxes[2].player == player && boxes[4] == player && boxes[6] == player) return true;
+
+    //no winner, no joy
     return false;
-  };
+  }
 
   var resetGame = function(){
-    //Reset game: make all cells empty
-    var cells = Cells.find().fetch();
-    for(var i = 0; i < cells.length; i++){
-      //remove player property from all cells
-      Cells.update({_id: cells[i]._id}, {$set: {player: null}});
+    //Reset game: make all boxes empty
+    var boxes = Boxes.find().fetch();
+    for (var i = 0; i < boxes.length; i++){
+      //remove player property from all boxes
+      Boxes.update({_id: boxes[i]._id}, {$set: {player: null}});
     }
     Session.set('winner', null);
-    clearTimeout(winningEndTimeout);
-  };
-
-  var setCurrentWinner = function() {
-    Session.set('winner', currentPlayer());
-    resetGameTimeout();
-  };
-
-  var getCurrentWinner = function(){
-    return Session.get('winner');
-  };
-
-  var resetGameTimeout = function() {
-    if(getCurrentWinner()) {
-      winningEndTimeout = setTimeout(function(){
-        resetGame();
-      }, 5000);
-    }
+    Session.set('player', 'X');
   };
 
   Template.gameboard.onRendered(resetGame);
 
   Template.gameboard.helpers({
-    cells: function () {
-      var boxes = Cells.find({}).fetch();
-      return boxes;
+    boxes: function () {
+      return Boxes.find().fetch();
     },
-    currentPlayer: currentPlayer,
-    isWinning: function(){
-      return hasWon(currentPlayer());
+    player: function() {
+      return Session.get('player');
     },
-    currentWinner: getCurrentWinner
+    hasWon: hasWon,
+    winner: function() {
+      return Session.get('winner');
+    }
   });
 
   Template.gameboard.events({
@@ -102,15 +65,15 @@ if (Meteor.isClient) {
 
   Template.box.events({
     "click .box": function(){
-      //cell already filled
-      var cellFilled = this.player;
-      //if the cell is filled or we have a winner, do nothing
-      if(cellFilled || getCurrentWinner()) { return; }
-      // is the cell is empty, fill it with current player (symbol)
-      var player = currentPlayer();
-      Cells.update(this._id, { $set: { player: player } });
-      if(hasWon(player)) {
-        setCurrentWinner();
+      //box already filled
+      var boxFilled = this.player;
+      //if the box is filled or we have a winner, do nothing
+      if(boxFilled || Session.get('winner')) { return; }
+      // is the box is empty, fill it with current player
+      Boxes.update(this._id, { $set: { player: Session.get('player') } });
+      console.log(hasWon());
+      if(hasWon()) {
+        Session.set('winner', Session.get('player'));
       } else {
         setNextPlayer();
       }
@@ -127,11 +90,11 @@ if (Meteor.isClient) {
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
-    Cells.remove({});
-    //fill 9 cells
-    if(Cells.find().count() === 0) {
+    Boxes.remove({});
+    //fill 9 boxes
+    if(Boxes.find().count() === 0) {
       for(var i = 0; i < 9; i++){
-        Cells.insert({cellIndex: i});
+        Boxes.insert({});
       }
     }
   });
