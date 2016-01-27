@@ -11,8 +11,9 @@
   <p>This can be translated into code:</p>
   {{#prism language="javascript" class="line-numbers"}}
   function hasWon() {
-    if (boxes[0] == 'X' && boxes[1] == 'X' && boxes[2] == 'X') return true; //we have a winner
-    if (boxes[3] == 'X' && boxes[4] == 'X' && boxes[5] == 'X') return true; //we have a winner
+    var boxes = Boxes.find({}).fetch(); //make a plain Array of our Collection
+    if (boxes[0].player == 'X' && boxes[1].player == 'X' && boxes[2].player == 'X') return true; //we have a winner
+    if (boxes[3].player == 'X' && boxes[4].player == 'X' && boxes[5].player == 'X') return true; //we have a winner
     //etc...
     return false; //otherwise, there is no winner
   }
@@ -22,18 +23,15 @@
   <h2>Let's optimize</h2>
   <p>We ended up now copying and pasting 16 combinations. When we were trying to display 9 boxes in our grid, remeber we did not want to do this copying and pasting?</p>
   <p>We can begin with using the variable we made for the current player symbol. This should reduce our code to 8 lines.</p>
+  {{#prism language="javascript" class="line-numbers"}}
+    Session.get('player');
+  {{/prism}}
   <h2>Optimize even more</h2>
   <p>We already discussed the <code>for</code> loop in step 2. The loops helps us reduce duplication. We can look how many times the repetition occurs and use the loop in place. So we have 3 boxes in each row, 3 boxes in each column and 3 boxes in each diagonal. This we can easily translate into code:</p>
   {{#prism language="javascript" class="line-numbers"}}
-    for(var i = 0; i < 3; i++){
+    for(var i = 0; i &lt; 3; i++){
       var box = Boxes.findOne({boxIndex: i});
-      box.player
+      //box.player; TODO
     }
-    var boxesInRow = 3;
-    var boxesInColumn = 3;
-    var boxesInDiagonal = 3;
-    var rowsCount = 3;
-    var columnsCount = 3;
-    var diagonalsCount = 2;
   {{/prism}}
 </template>
