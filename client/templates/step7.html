@@ -1,0 +1,37 @@
+<template name="step7">
+  <h1>Do we have a winner?</h1>
+  <p class="flow-text">In this step, we will be detecting if we have a winner, on each click on a box.</p>
+  <p>How can we determine if we have a winner? Let's try to determine the rules in plain English, this is what we call <code>pseudo code</code></p>
+  <p>Here it goes: if we have three same values in one row / column / diagonal, we have a winner. This is what wikipedia says about it:</p>
+  <blockquote cite="https://en.wikipedia.org/wiki/Tic-tac-toe">
+    The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game.
+  </blockquote>
+  <p>Can you think (or draw) of the possible winning combinations? (The above wikipedia article has them all drawn out for you)</p>
+  <p>Box 1, box 2 and box 3 form one row. Box 1, box 4 and box 7 form a column. Box 1, box 5 and box 9 form a diagonal. And so on for all the possible combinations (there are 3 for rows, 3 for columns and 2 for diagonals, for each symbol).</p>
+  <p>This can be translated into code:</p>
+  {{#prism language="javascript" class="line-numbers"}}
+  function hasWon() {
+    var boxes = Boxes.find({}).fetch(); //make a plain Array of our Collection
+    if (boxes[0].player == 'X' && boxes[1].player == 'X' && boxes[2].player == 'X') return true; //we have a winner
+    if (boxes[3].player == 'X' && boxes[4].player == 'X' && boxes[5].player == 'X') return true; //we have a winner
+    //etc...
+    return false; //otherwise, there is no winner
+  }
+  {{/prism}}
+  <p>We are making a function that we call <code>hasWon</code> that looks at the gameboard and returns if there is a winner.</p>
+  <p>Whether we have a winner is called the <code>state</code>. Another example of a state in our game is whether a box is filled or empty.</p>
+  <h2>Let's optimize</h2>
+  <p>We ended up now copying and pasting 16 combinations. When we were trying to display 9 boxes in our grid, remeber we did not want to do this copying and pasting?</p>
+  <p>We can begin with using the variable we made for the current player symbol. This should reduce our code to 8 lines.</p>
+  {{#prism language="javascript" class="line-numbers"}}
+    Session.get('player');
+  {{/prism}}
+  <h2>Optimize even more</h2>
+  <p>We already discussed the <code>for</code> loop in step 2. The loops helps us reduce duplication. We can look how many times the repetition occurs and use the loop in place. So we have 3 boxes in each row, 3 boxes in each column and 3 boxes in each diagonal. This we can easily translate into code:</p>
+  {{#prism language="javascript" class="line-numbers"}}
+    for(var i = 0; i &lt; 3; i++){
+      var box = Boxes.findOne({boxIndex: i});
+      //box.player; TODO
+    }
+  {{/prism}}
+</template>
