@@ -29,12 +29,16 @@
       }
     });
 
+
     Template.box.events({
       'click': function(){
         return Session.set('player', 'X');
       }
     });
+  {{/prism}}
 
+  And the html-code:
+  {{#prism language="javascript" class="line-numbers"}}
     &lt;template name=&quot;box&quot;&gt;
       &lt;div class=&quot;box&quot;&gt;&#123;&#123;player&#125;&#125;&lt;/box&gt;
     &lt;/template&gt;

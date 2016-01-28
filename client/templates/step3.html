@@ -45,13 +45,13 @@
   <p>Wrap the box into an <code>&#123;&#123;#each&#125;&#125;</code> function to loop over the boxes, like this:</p>
   {{#prism language="javascript" class="line-numbers" data-line="1-2, 4, 5"}}
     &#123;&#123;#each boxes&#125;&#125;
-      &lt;div class="box"&gt;&lt;/div&gt;
+      &#123;&#123;&gt;box&#125;&#125;
     &#123;&#123;/each&#125;&#125;
   {{/prism}}
   <p>You can see the <a href="https://www.meteor.com/tutorials/blaze/templates">example</a> given on the meteor introduction page to get an idea how to do that.</p>
 
   <p>Can you display the index of a box in the box itself? Tip: remember, when populating the <code>Boxes</code> collection, we added a property called <code>boxIndex</code> to each box? You can acces this property directly in your html.</p>
-  
+
   {{> summary}}
   <p>After creating a template, we need to manually include it within the interface.</p>
   <p>By creating helper functions, we can execute code from within a template, which means we are creating a dynamic interface. </p>

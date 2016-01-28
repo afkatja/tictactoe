@@ -8,9 +8,10 @@
   {{#prism language="javascript" class="line-numbers"}}
     Boxes.update(id, {$set: {player: player}});
   {{/prism}}
+  <!-- TODO: Link to collection functions -->
   <p>Let's have a look at the first part of this method: <code>id</code>. The Collections needs to know which record to update, so the <code>id</code> is a unique identifier assigned to each record.</p>
   <p>How do we know the id? Remember, in step 4, when we clicked on the box, we had access to <code>this</code> which in the context of the click event refers to the box we clicked on. <code>this._id</code> gives us the identifier of that box within the Collection.</p>
-  <p>Now, the second part of the update method. You can perform various operations when updating a collection, like <code>$set, $unset, $mul</code>, etc. When using <code>$set</code>, we add a field to the record, in our case field called <code>player</code>.</p>
+  <p>Now, the second part of the update method. You can perform various operations when updating a collection, like <code>$set, $unset, $mul</code>, etc. See detailed description <a href="">here</a>. When using <code>$set</code>, we add a field to the record, in our case field called <code>player</code>.</p>
   <p>We need to assign a value to this field. And this is when we are using the Session variable we talked about in step 5.</p>
   <p>The code to set the player symbol (we called it <code>player</code>, but you can use whatever name you consider fit in this case) should look something like this:</p>
   {{#prism language="javascript" class="line-numbers"}}
@@ -31,7 +32,7 @@
       //do something
     }
   {{/prism}}
-  <p>Try to set another value to the Session by using the <code>if</code> statement and <code>Session.get()</code> and <code>Session.set()</code>.</p>
+  <p>See the <a href="">MDN</a> page for more exmamples on if. Try to set another value to the Session by using the <code>if</code> statement and <code>Session.get()</code> and <code>Session.set()</code>.</p>
   <p>Eventually, your code should look something like this:</p>
   {{#prism language="javascript" class="line-numbers"}}
     if(Session.get('player') == 'X') {
@@ -62,6 +63,7 @@
     });
   {{/prism}}
   <p>In the next step, we will disable the box if there is already a symbol in it.</p>
+  <!-- TODO: Do this in the next step or change this line. -->
   {{> summary}}
   <p>We now know how to update an item in our Collection by using <code>Boxes.update()</code>.</p>
   <p>We also know how to use the <code>if / else</code> statement in javascript.</p>
