@@ -1,43 +1,29 @@
-CollectionBoxes = new Meteor.Collection('boxes');
+Boxes = new Meteor.Collection('boxes');
 
 if (Meteor.isClient) {
-  Session.set({currentPlayer: 'X'});
-
-  var currentPlayer = function(){
-    return Session.get('currentPlayer');
-  };
-
-  var setNextPlayer = function(){
-    if(currentPlayer() == 'X') Session.set({currentPlayer: 'O'});
-    else Session.set({currentPlayer: 'X'});
-  };
 
   Meteor.startup(function(){
     console.log('started up client');
   });
 
-  Template.gameboard.events({
-    click: function() {
-      console.log('Clicked the gameboard');
+  Template.gameboard.helpers({
+    boxes: function(){
+      return Boxes.find({});
+    },
+    player: function(){
+      return Session.get('player');
     }
   });
 
-  Template.gameboard.helpers({
-    boxes: function(){
-      return CollectionBoxes.find({});
-    },
-    currentPlayer: currentPlayer
+  Template.box.events({
+    'click': function(){
+      return Session.set('player', 'X');
+    }
   });
 
-  Template.box.events({
-    click: function() {
-      var cellFilled = this.player;
-      if (cellFilled) {
-        return;
-      }
-      var player = currentPlayer();
-      CollectionBoxes.update(this._id, { $set: { player: player } });
-      setNextPlayer();
+  Template.box.helpers({
+    player: function(){
+      return Session.get('player');
     }
   });
 
@@ -47,13 +33,13 @@ if (Meteor.isServer) {
 
   // executed on startup of the server
   Meteor.startup(function () {
-    //remove eventually collections
-    CollectionBoxes.remove({});
-    //fill 9 cells
-    if(CollectionBoxes.find().count() === 0) {
+    //just to be sure, we want to begin with a new (empty) collection
+    Boxes.remove({});
+    //and fill it with 9 boxes
+    if(Boxes.find().count() === 0) {
       for(var i = 0; i < 9; i++){
-        CollectionBoxes.insert({boxIndex: i});
-        console.log('insert i',i);
+        Boxes.insert({boxIndex: i});
+        console.log('inserted box with index', i);
       }
     }
   });

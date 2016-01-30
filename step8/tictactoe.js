@@ -1,90 +1,62 @@
-CollectionBoxes = new Meteor.Collection('boxes');
+Boxes = new Meteor.Collection('boxes');
 
 if (Meteor.isClient) {
-  Session.set({currentPlayer: 'X'});
+  Session.set({player: 'X'});
 
-  var currentPlayer = function(){
-    return Session.get('currentPlayer');
-  };
-
+  //do the switch of player
   var setNextPlayer = function(){
-    if(currentPlayer() == 'X') Session.set({currentPlayer: 'O'});
-    else Session.set({currentPlayer: 'X'});
+    var player = Session.get('player');
+    if(player == 'X') {
+      Session.set({player: 'O'});
+    } else {
+      Session.set({player: 'X'});
+    }
   };
 
-  var winningCombos = [ // patterns for winning line-ups
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ];
+  var hasWon = function() {
+    //make a plain array of our Collection so we can use native javascript Array methods
+    var boxes = Boxes.find().fetch();
+    var player = Session.get('player');
+    //only check if there is such property
+    if(boxes[0].player) {
+      //game rules
+      //we have a winner in a row
+      if (boxes[0].player == player && boxes[1].player == player && boxes[2].player == player) return true;
+      if (boxes[3].player == player && boxes[4].player == player && boxes[5].player == player) return true;
+      if (boxes[6].player == player && boxes[7].player == player && boxes[8].player == player) return true;
 
-  var hasWon = function(currentPlayerSymbol) {
-    for(var x = 0; x < winningCombos.length; x++){
-      var combo = winningCombos[x];
-      var symbols = combo.map(getSymbolInBox);
-      if(match(symbols, currentPlayerSymbol)) {
-        return true;
-      }
+      //we have a winner in a column
+      if (boxes[0].player == player && boxes[3].player == player && boxes[6].player == player) return true;
+      if (boxes[1].player == player && boxes[4].player == player && boxes[7].player == player) return true;
+      if (boxes[2].player == player && boxes[5].player == player && boxes[8].player == player) return true;
+
+      //we have a winner in a diagonal
+      if (boxes[2].player == player && boxes[4].player == player && boxes[6].player == player) return true;
+      if (boxes[0].player == player && boxes[4].player == player && boxes[8].player == player) return true;
     }
-    // no combo matched means no winner (yet)
+    //no winner, no joy
     return false;
   };
 
-  var getSymbolInBox = function(index) {
-    var matchingBox = CollectionBoxes.findOne({boxIndex: index});
-    if(matchingBox) {
-      return matchingBox.player;
-    }
-  };
-
-  var match = function(symbols, currentPlayerSymbol) {
-    for(var x = 0; x < symbols.length; x++){
-      if (symbols[x] != currentPlayerSymbol )
-        // if one symbol is not the same there is no match, though return false
-        return false;
-    }
-    // everything is matching, there is a winner
-    return true;
-  };
-
-  var setCurrentWinner = function() {
-    Session.set('winner', currentPlayer());
-  };
-
-  var getCurrentWinner = function() {
-    return Session.get('winner');
-  };
-
-  Template.gameboard.events({
-
-  });
-
   Template.gameboard.helpers({
     boxes: function(){
-      return CollectionBoxes.find({});
+      return Boxes.find({});
     },
-    currentPlayer: currentPlayer,
-    currentWinner: getCurrentWinner,
-    isWinning: function() {
-      return hasWon(currentPlayer());
+    player: function(){
+      return Session.get('player');
     }
   });
 
   Template.box.events({
     click: function() {
-      var cellFilled = this.player;
-      if (cellFilled|| getCurrentWinner()) {
+      var boxFilled = this.player;
+      if (boxFilled) {
         return;
       }
-      var player = currentPlayer();
-      CollectionBoxes.update(this._id, { $set: { player: player } });
-      if(hasWon(player)) {
-        setCurrentWinner();
+      var player = Session.get('player');
+      Boxes.update(this._id, { $set: { player: player } });
+      if(hasWon()) {
+        Session.set('winner', player);
       } else {
         setNextPlayer();
       }
@@ -104,13 +76,13 @@ if (Meteor.isServer) {
 
   // executed on startup of the server
   Meteor.startup(function () {
-    //remove eventually collections
-    CollectionBoxes.remove({});
-    //fill 9 cells
-    if(CollectionBoxes.find().count() === 0) {
+    //just to be sure, we want to begin with a new (empty) collection
+    Boxes.remove({});
+    //and fill it with 9 boxes
+    if(Boxes.find().count() === 0) {
       for(var i = 0; i < 9; i++){
-        CollectionBoxes.insert({boxIndex: i});
-        console.log('insert i',i);
+        Boxes.insert({boxIndex: i});
+        console.log('inserted box with index', i);
       }
     }
   });

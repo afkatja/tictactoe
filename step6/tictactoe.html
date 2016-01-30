@@ -9,7 +9,7 @@
 </body>
 
 <template name="gameboard">
-  The current player is {{currentPlayer}}!
+  <h2 class="current">It is <strong>{{player}}</strong> turn!</h2>
 
   <div class="gameboard">
     {{#each boxes}}
@@ -19,5 +19,5 @@
 </template>
 
 <template name="box">
-  <div class="box {{#if disabled}} disabled {{/if}}">{{player}}</div>
+  <div class="box">{{player}}</div>
 </template>

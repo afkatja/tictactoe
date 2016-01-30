@@ -1,66 +1,48 @@
-CollectionBoxes = new Meteor.Collection('boxes');
+Boxes = new Meteor.Collection('boxes');
 
 if (Meteor.isClient) {
-  Session.set({currentPlayer: 'X'});
+  //set initial player
+  Session.set({player: 'X'});
 
-  var currentPlayer = function(){
-    return Session.get('currentPlayer');
-  };
-
+  //do the switch of player
   var setNextPlayer = function(){
-    if(currentPlayer() == 'X') Session.set({currentPlayer: 'O'});
-    else Session.set({currentPlayer: 'X'});
-  };
-
-  Meteor.startup(function(){
-    console.log('started up client');
-  });
-
-  Template.gameboard.events({
-    click: function() {
-      console.log('Clicked the gameboard');
+    var player = Session.get('player');
+    if(player == 'X') {
+      Session.set({player: 'O'});
+    } else {
+      Session.set({player: 'X'});
     }
-  });
+  };
 
   Template.gameboard.helpers({
     boxes: function(){
-      return CollectionBoxes.find({});
+      return Boxes.find({});
     },
-    currentPlayer: currentPlayer
+    player: function(){
+      return Session.get('player');
+    }
   });
 
   Template.box.events({
     click: function() {
-      var cellFilled = this.player;
-      if (cellFilled) {
-        return;
-      }
-      var player = currentPlayer();
-      CollectionBoxes.update(this._id, { $set: { player: player } });
+      var player = Session.get('player');
+      Boxes.update(this._id, { $set: { player: player } });
       setNextPlayer();
     }
   });
-
-  Template.box.helpers({
-    disabled: function () {
-      //if the cell is filled, we cannot click there anymore
-      return this.player;
-    }
-  });
-
 }
 
 if (Meteor.isServer) {
 
   // executed on startup of the server
   Meteor.startup(function () {
-    //remove eventually collections
-    CollectionBoxes.remove({});
-    //fill 9 cells
-    if(CollectionBoxes.find().count() === 0) {
+    //just to be sure, we want to begin with a new (empty) collection
+    Boxes.remove({});
+    //and fill it with 9 boxes
+    if(Boxes.find().count() === 0) {
       for(var i = 0; i < 9; i++){
-        CollectionBoxes.insert({boxIndex: i});
-        console.log('insert i',i);
+        Boxes.insert({boxIndex: i});
+        console.log('inserted box with index', i);
       }
     }
   });

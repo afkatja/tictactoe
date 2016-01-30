@@ -72,7 +72,9 @@ if (Meteor.isClient) {
       var boxFilled = this.player;
       var player = Session.get('player');
       //if the box is filled or we have a winner, do nothing
-      if(boxFilled || Session.get('winner')) { return; }
+      if(boxFilled || Session.get('winner')) {
+        return;
+      }
       // is the box is empty, fill it with current player
       Boxes.update(this._id, { $set: { player: player } });
       if(hasWon()) {
