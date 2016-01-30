@@ -16,7 +16,7 @@ if (Meteor.isClient) {
     var boxes = Boxes.find().fetch();
     var player = Session.get('player');
     //only check if there is such property
-    if(boxes[0].player) {
+    if(boxes[0] && boxes[0].player) {
       //game rules
       //we have a winner in a row
       if (boxes[0].player == player && boxes[1].player == player && boxes[2].player == player) return true;
