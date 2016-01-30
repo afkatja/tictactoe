@@ -82,6 +82,14 @@ blockquote {
   border-color: #26a69a;
   color: #ccc;
 }
+blockquote:after {
+  content: '(' attr(cite) ')';
+  text-align: right;
+  display: block;
+  margin-top: 10px;
+  color: #26a69a;
+  font-size: 12px;
+}
 
 .slides {
   display: flex;
