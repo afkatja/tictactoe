@@ -1,13 +1,15 @@
 Boxes = new Meteor.Collection('boxes');
 
 if (Meteor.isClient) {
-  Session.set('player', 'X');
+  Session.set({player: 'X'});
 
+  //do the switch of player
   var setNextPlayer = function(){
-    if (Session.get('player') == 'X') {
-      Session.set('player', 'O');
+    var player = Session.get('player');
+    if(player == 'X') {
+      Session.set({player: 'O'});
     } else {
-      Session.set('player', 'X');
+      Session.set({player: 'X'});
     }
   };
 
@@ -16,7 +18,7 @@ if (Meteor.isClient) {
     var boxes = Boxes.find().fetch();
     var player = Session.get('player');
     //only check if there is such property
-    if(boxes[0] && boxes[0].player) {
+    if(boxes[0].player) {
       //game rules
       //we have a winner in a row
       if (boxes[0].player == player && boxes[1].player == player && boxes[2].player == player) return true;
@@ -36,46 +38,22 @@ if (Meteor.isClient) {
     return false;
   };
 
-  var resetGame = function(){
-    //Reset game: make all boxes empty
-    var boxes = Boxes.find().fetch();
-    for (var i = 0; i < boxes.length; i++){
-      //remove player property from all boxes
-      Boxes.update({_id: boxes[i]._id}, {$set: {player: null}});
-    }
-    Session.set('winner', null);
-    Session.set('player', 'X');
-  };
-
-  Template.gameboard.onRendered(resetGame);
-
   Template.gameboard.helpers({
-    boxes: function () {
-      return Boxes.find().fetch();
+    boxes: function(){
+      return Boxes.find({});
     },
-    player: function() {
+    player: function(){
       return Session.get('player');
-    },
-    hasWon: hasWon,
-    winner: function() {
-      return Session.get('winner');
     }
-  });
-
-  Template.gameboard.events({
-    'click .reset-game': resetGame
   });
 
   Template.box.events({
-    "click .box": function(){
-      //box already filled
+    click: function() {
       var boxFilled = this.player;
-      var player = Session.get('player');
-      //if the box is filled or we have a winner, do nothing
-      if(boxFilled || Session.get('winner')) {
+      if (boxFilled) {
         return;
       }
-      // is the box is empty, fill it with current player
+      var player = Session.get('player');
       Boxes.update(this._id, { $set: { player: player } });
       if(hasWon()) {
         Session.set('winner', player);
@@ -91,16 +69,20 @@ if (Meteor.isClient) {
       return this.player;
     }
   });
+
 }
 
 if (Meteor.isServer) {
+
+  // executed on startup of the server
   Meteor.startup(function () {
-    //just to be sure, we want to begin with a new collection
+    //just to be sure, we want to begin with a new (empty) collection
     Boxes.remove({});
     //and fill it with 9 boxes
     if(Boxes.find().count() === 0) {
       for(var i = 0; i < 9; i++){
-        Boxes.insert({});
+        Boxes.insert({boxIndex: i});
+        console.log('inserted box with index', i);
       }
     }
   });

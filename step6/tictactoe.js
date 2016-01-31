@@ -1,13 +1,33 @@
 Boxes = new Meteor.Collection('boxes');
 
 if (Meteor.isClient) {
-  Meteor.startup(function(){
-    console.log('started up client');
-  });
+  //set initial player
+  Session.set({player: 'X'});
+
+  //do the switch of player
+  var setNextPlayer = function(){
+    var player = Session.get('player');
+    if(player == 'X') {
+      Session.set({player: 'O'});
+    } else {
+      Session.set({player: 'X'});
+    }
+  };
 
   Template.gameboard.helpers({
     boxes: function(){
       return Boxes.find({});
+    },
+    player: function(){
+      return Session.get('player');
+    }
+  });
+
+  Template.box.events({
+    click: function() {
+      var player = Session.get('player');
+      Boxes.update(this._id, { $set: { player: player } });
+      setNextPlayer();
     }
   });
 }

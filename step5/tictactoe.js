@@ -1,6 +1,7 @@
 Boxes = new Meteor.Collection('boxes');
 
 if (Meteor.isClient) {
+
   Meteor.startup(function(){
     console.log('started up client');
   });
@@ -8,8 +9,24 @@ if (Meteor.isClient) {
   Template.gameboard.helpers({
     boxes: function(){
       return Boxes.find({});
+    },
+    player: function(){
+      return Session.get('player');
     }
   });
+
+  Template.box.events({
+    'click': function(){
+      return Session.set('player', 'X');
+    }
+  });
+
+  Template.box.helpers({
+    player: function(){
+      return Session.get('player');
+    }
+  });
+
 }
 
 if (Meteor.isServer) {

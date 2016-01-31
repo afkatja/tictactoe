@@ -9,11 +9,15 @@
 </body>
 
 <template name="gameboard">
+  <h2 class="current">It is <strong>{{player}}</strong> turn!</h2>
+
   <div class="gameboard">
-    <div class="box"></div>
+    {{#each boxes}}
+      {{> box}}
+    {{/each}}
   </div>
 </template>
 
 <template name="box">
-  <div class="box"></div>
+  <div class="box">{{player}}</div>
 </template>

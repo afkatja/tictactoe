@@ -1,6 +1,7 @@
 Boxes = new Meteor.Collection('boxes');
 
 if (Meteor.isClient) {
+
   Meteor.startup(function(){
     console.log('started up client');
   });
@@ -10,6 +11,13 @@ if (Meteor.isClient) {
       return Boxes.find({});
     }
   });
+
+  Template.box.events({
+    click: function() {
+      console.log('Clicked box nr',this);
+    }
+  });
+
 }
 
 if (Meteor.isServer) {
