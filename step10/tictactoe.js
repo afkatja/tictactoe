@@ -3,7 +3,7 @@ Boxes = new Meteor.Collection('boxes');
 if (Meteor.isClient) {
   Session.set('player', 'X');
 
-  var setNextPlayer = function setNextPlayer(){
+  var setNextPlayer = function(){
     if (Session.get('player') == 'X') {
       Session.set('player', 'O');
     } else {
@@ -43,13 +43,22 @@ if (Meteor.isClient) {
       //remove player property from all boxes
       Boxes.update({_id: boxes[i]._id}, {$set: {player: null}});
     }
-    // Initialize the Session again.
+    Session.set('winner', null);
     Session.set('player', 'X');
   };
 
+  Template.gameboard.onRendered(resetGame);
+
   Template.gameboard.helpers({
-    boxes: function(){
-      return Boxes.find({});
+    boxes: function () {
+      return Boxes.find().fetch();
+    },
+    player: function() {
+      return Session.get('player');
+    },
+    hasWon: hasWon,
+    winner: function() {
+      return Session.get('winner');
     }
   });
 
@@ -58,31 +67,30 @@ if (Meteor.isClient) {
   });
 
   Template.box.events({
-    click: function(){
+    "click .box": function(){
+      //box already filled
       var boxFilled = this.player;
-      if (boxFilled) {
+      var player = Session.get('player');
+      //if the box is filled or we have a winner, do nothing
+      if(boxFilled || Session.get('winner')) {
         return;
       }
-      var sessionPlayer = Session.get('player');
-      Boxes.update(this._id, { $set: { player: sessionPlayer } });
+      // is the box is empty, fill it with current player
+      Boxes.update(this._id, { $set: { player: player } });
       if(hasWon()) {
-        console.log("Player", Session.get('player'),"has won");
+        Session.set('winner', player);
       } else {
-        console.log('Player', Session.get('player'),'has NOT won');
         setNextPlayer();
       }
     }
   });
 
   Template.box.helpers({
-    player: function(){
-      return this.player;
-    },
-    disabled:function() {
+    disabled: function () {
+      //if the cell is filled, we cannot click there anymore
       return this.player;
     }
   });
-
 }
 
 if (Meteor.isServer) {
