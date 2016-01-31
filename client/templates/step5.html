@@ -1,50 +1,53 @@
 <template name="step5">
   <h1>Display an X</h1>
   <p class="flow-text">In this step, we will use the click event we registered in the previous step to display a value in our interface.</p>
-  <h2>Session</h2>
-  <p>We will use Meteor's <a href="http://docs.meteor.com/#/full/session">Session</a></p>
-  <blockquote cite="http://meteortips.com/first-meteor-tutorial/sessions/">
-    ...sessions allow us to store small pieces of data that is not saved to the database and and won’t be remembered on return visits
-  </blockquote>
-  <p>The syntax is simple:</p>
-  {{#prism language="javascript" class="line-numbers"}}
-    Session.set(name, value);
-  {{/prism}}
-
-  <p>The name of the session (must be a <code>string</code>) will be used for reference, like this:</p>
-  {{#prism language="javascript" class="line-numbers"}}
-    Session.get(name);
-  {{/prism}}
-  <p>Session is independent of templates or events and it has to live in the Client.</p>
-  <p>When a Session variable is set in a template, you can also use it in other templates.</p>
-  <h2>Click to get the Session variable</h2>
-  <p>We already know how to register an event on a template. Now instead of displaying a value in console, we want to display it directly in our box (where we clicked).</p>
-  <p>Now we have to display the value we assigned to the session.</p>
-
-  <p>Your code for the <code>box</code> template should look like this:</p>
-  {{#prism language="javascript" class="line-numbers"}}
-    Template.box.helpers({
-      player: function(){
-        return Session.get('player');
-      }
-    });
-
-
-    Template.box.events({
-      'click': function(){
-        return Session.set('player', 'X');
-      }
-    });
-  {{/prism}}
-
-  And the html-code:
+  <h2>Add a player to a box</h2>
+  <p>You need to add a player in the box template in html</p>
   {{#prism language="javascript" class="line-numbers"}}
     &lt;template name=&quot;box&quot;&gt;
       &lt;div class=&quot;box&quot;&gt;&#123;&#123;player&#125;&#125;&lt;/box&gt;
     &lt;/template&gt;
   {{/prism}}
-  <p>And here is what you should see in the browser when you run this code</p>
+  You need to fill this player variable with a helper in the js-code.
+  {{#prism language="javascript" class="line-numbers"}}
+    Template.box.helpers({
+      player: function(){
+        return 'X';
+      }
+    });
+  {{/prism}}
+  <p>You know should see that every box is filled with a 'X'. That is not exactlye what we want. So how do we only show an 'X' if you click on a box?</p>
+
+  <h2>Using the collection</h2>
+  <p>Previously we have created a Collection called 'Boxes'. There is nothing stored in it really. That is going to change. So the idea is to add a player to the collection everytime you press a box. And on the other side we will always want to return the player of the collection and not always a string 'X'.</p>
+  <p> For setting a player on a box you should add the following code to the click event of the box:</p>
+  {{#prism language="javascript" class="line-numbers"}}
+    Boxes.update(this._id, { $set: { player: 'X' } });
+  {{/prism}}
+  <p>Let's have a look at the first part of this method: <code>id</code>. The Collections needs to know which record to update, so the <code>id</code> is a unique identifier assigned to each record.</p>
+  <p>How do we know the id? Remember, in step 4, when we clicked on the box, we had access to <code>this</code> which in the context of the click event refers to the box we clicked on. <code>this._id</code> gives us the identifier of that box within the Collection.</p>
+  <p>Now, the second part of the update method. You can perform various operations when updating a collection, like <code>$set, $unset, $mul</code>, etc. See detailed description <a href="">here</a>. When using <code>$set</code>, we add a field to the record, in our case field called <code>player</code>.</p>
+  <p>We need to assign a value to this field. And this is when we are using the Session variable we talked about in step 5.</p>
+  <p>The code to set the player symbol (we called it <code>player</code>, but you can use whatever name you consider fit in this case) should look something like this:</p>
+  {{#prism language="javascript" class="line-numbers"}}
+    Template.box.events({
+      'click': function(){
+        var player = Session.get('player');
+        Boxes.update(this._id, {$set: { player: player } });
+      }
+    });
+  {{/prism}}
+  <p>What we display in the <code>html</code> will be this property of the box we just added. So it will only appear if it exists.</p>
+  <p>Read more about the update function of the Collection <a href="http://docs.meteor.com/#/full/update">here</a></p>
+  <p>For returning the player in the collection add the following to the box helpers you just have created:</p>
+  {{#prism language="javascript" class="line-numbers"}}
+    return this.player;
+  {{/prism}}
+  <p>The keyword 'this' is reffering in this case to the box. Remembering the context story in the last step?</p>
+  <p>So now we should see that there is only a 'X' shown when you have clicked on a box. Like this:</p>
   <video src="/click.mov" autoplay controls="true"></video>
+
+  <p>Ok nice, finally some action. So the next part will be to swtich between 'X' and 'O'.</p>
   {{> summary}}
-  <p>We know about <code>Session</code> in Meteor, a convenient way of storing data for easy retrieval.</p>
+  <p>We know how to update a Collection in Meteor.</p>
 </template>

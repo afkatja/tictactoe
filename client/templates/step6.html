@@ -1,28 +1,39 @@
 <template name="step6">
   <h1>Switch between players</h1>
   <p class="flow-text">In this step, we will try to alternate X and O on each click.</p>
-  <h2>Update box's property</h2>
-  <p>Instead of directly manipulating the <code>Session</code> on click, we should update our <code>Boxes</code> Collection.</p>
-  <p>The idea is as follows: we will add a property to the box on which we clicked. This property will be retrieved from the <code>Session</code>.</p>
-  <p>The method to update the Meteor Collection is, logically, <code>update()</code>. You can to set a property on an item like this:</p>
+  <p> We need to store a global variable that stores the currect player. And which will be updated everytime a box is clicked.</p>
+  <h2>Session</h2>
+  <p>We will use Meteor's <a href="http://docs.meteor.com/#/full/session">Session</a> to store the currect player.</p>
+  <blockquote cite="http://meteortips.com/first-meteor-tutorial/sessions/">
+    ...sessions allow us to store small pieces of data that is not saved to the database and and won’t be remembered on return visits
+  </blockquote>
+  <p>The syntax is simple:</p>
   {{#prism language="javascript" class="line-numbers"}}
-    Boxes.update(id, {$set: {player: player}});
+    Session.set(name, value);
   {{/prism}}
-  <!-- TODO: Link to collection functions -->
-  <p>Let's have a look at the first part of this method: <code>id</code>. The Collections needs to know which record to update, so the <code>id</code> is a unique identifier assigned to each record.</p>
-  <p>How do we know the id? Remember, in step 4, when we clicked on the box, we had access to <code>this</code> which in the context of the click event refers to the box we clicked on. <code>this._id</code> gives us the identifier of that box within the Collection.</p>
-  <p>Now, the second part of the update method. You can perform various operations when updating a collection, like <code>$set, $unset, $mul</code>, etc. See detailed description <a href="">here</a>. When using <code>$set</code>, we add a field to the record, in our case field called <code>player</code>.</p>
-  <p>We need to assign a value to this field. And this is when we are using the Session variable we talked about in step 5.</p>
-  <p>The code to set the player symbol (we called it <code>player</code>, but you can use whatever name you consider fit in this case) should look something like this:</p>
+  <p>The name of the session (must be a <code>string</code>) will be used for reference, like this:</p>
   {{#prism language="javascript" class="line-numbers"}}
-    Template.box.events({
-      'click': function(){
-        var player = Session.get('player');
-        Boxes.update(this._id, {$set: { player: player } });
-      }
-    });
+    Session.get(name);
   {{/prism}}
-  <p>What we display in the <code>html</code> will be this property of the box we just added. So it will only appear if it exists.</p>
+  <p>Session is independent of templates or events and it has to live in the Client.</p>
+  <p>When a Session variable is set in a template, you can also use it in other templates.</p>
+
+  <h2>Set and get the player</h2>
+  <p>We will starting by intializing the Session on start up of the client. Like this:</p>
+  {{#prism language="javascript" class="line-numbers"}}
+  if (Meteor.isClient) {
+    Session.set('player', 'X');
+    ...
+  {{/prism}}
+  <p>Now everytime the collection is updated, the session variable should be used.</p>
+  {{#prism language="javascript" class="line-numbers"}}
+    var sessionPlayer = Session.get('player');
+    Boxes.update(this._id, { $set: { player: sessionPlayer } });
+  {{/prism}}
+  <p>Noticing the 'var' infront ot the 'sessionPlayer'. That is how local variables are defined. In contrast to session variables, which are available in the whole client code, local variables (defined with a 'var') are only available within the context they are defined in. The curly brackets '{}' defining such a context.</p>
+  <p>Local variables are often used to structure code and make it more readable. You probably will see these variables a lot. So look out for the 'var'.
+    If you define a local variable give it a name that makes sense. Not something like 'foo' or 'bla'. Also not some abreviation, which might makes sense at the moment. In this way
+    other people who will read your code can easily understand your code.</p>
 
   <h2>Do the switch</h2>
   <p>Now we need to see which symbol is now in use and swap it for another.</p>
@@ -32,7 +43,7 @@
       //do something
     }
   {{/prism}}
-  <p>See the <a href="">MDN</a> page for more exmamples on if. Try to set another value to the Session by using the <code>if</code> statement and <code>Session.get()</code> and <code>Session.set()</code>.</p>
+  <p>See the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else">MDN</a> page for more exmamples on if. Try to set another value to the Session by using the <code>if</code> statement and <code>Session.get()</code> and <code>Session.set()</code>.</p>
   <p>Eventually, your code should look something like this:</p>
   {{#prism language="javascript" class="line-numbers"}}
     if(Session.get('player') == 'X') {
@@ -47,24 +58,14 @@
       Session.set('player', 'X');
     }
   {{/prism}}
-  <p>So in the update method, we can take advantage of this switch (because, as we remember, Session is avalable from within every template). But we only want to make the switch <i>after</i> we inserted a symbol into the box. In other words, we need a <code>currentPlayer</code> and a <code>nextPlayer</code>.</p>
-  <p>Your final code should look like this:</p>
+  <p>For readability you might want to wrap this code in a seperate function.</p>
   {{#prism language="javascript" class="line-numbers"}}
-    Template.box.events({
-      'click': function(){
-        var player = Session.get('player');
-        Boxes.update(this._id, {$set: { player: player } });
-        if(Session.get('player') == 'X') {
-          Session.set('player', 'O');
-        } else {
-          Session.set('player', 'X');
-        }
-      }
-    });
+    var setNextPlayer = function setNextPlayer(){
+      ...
+    }
   {{/prism}}
-  <p>In the next step, we will disable the box if there is already a symbol in it.</p>
-  <!-- TODO: Do this in the next step or change this line. -->
-  {{> summary}}
-  <p>We now know how to update an item in our Collection by using <code>Boxes.update()</code>.</p>
-  <p>We also know how to use the <code>if / else</code> statement in javascript.</p>
+  <p>And call it after you have updated the collection.</p>
+  {{#prism language="javascript" class="line-numbers"}}
+    setNextPlayer();
+  {{/prism}}
 </template>
