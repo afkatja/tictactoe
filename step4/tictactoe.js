@@ -9,7 +9,6 @@ if (Meteor.isClient) {
 
   Template.gameboard.events({
     click: function() {
-      console.log('Clicked the gameboard');
     }
   });
 
