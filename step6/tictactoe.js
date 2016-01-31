@@ -3,7 +3,7 @@ Boxes = new Meteor.Collection('boxes');
 if (Meteor.isClient) {
   Session.set('player', 'X');
 
-  var setNextPlayer = function setNextPlayer(){
+  var setNextPlayer = function(){
     if (Session.get('player') == 'X') {
       Session.set('player', 'O');
     } else {
