@@ -1,6 +1,8 @@
 Boxes = new Mongo.Collection('boxes');
 
 if (Meteor.isClient) {
+  console.log('Boxes', Boxes.find({}).fetch());
+
   // counter starts at 0
   Session.setDefault('counter', 0);
 

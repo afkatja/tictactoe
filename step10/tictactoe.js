@@ -1,4 +1,4 @@
-Boxes = new Meteor.Collection('boxes');
+Boxes = new Mongo.Collection('boxes');
 
 if (Meteor.isClient) {
   Session.set('player', 'X');
