@@ -102,3 +102,9 @@ footer li + li {
   padding-left: 10px;
   border-left: 1px solid;
 }
+
+.listing li{
+  list-style-type: circle;
+  padding-left: 10px;
+  margin-left: 20px;
+}

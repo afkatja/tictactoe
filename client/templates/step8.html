@@ -57,8 +57,10 @@
   Boxes.update(this._id, { $set: { player: sessionPlayer } });
   if(hasWon()) {
     console.log("Player", Session.get('player'),"has won");
+  } else {
+    console.log('Player', Session.get('player'),'has NOT won');
+    setNextPlayer();
   }
-  setNextPlayer();
 {{/prism}}
 
 {{>summary}}
