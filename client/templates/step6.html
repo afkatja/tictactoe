@@ -60,7 +60,7 @@
   {{/prism}}
   <p>For readability you might want to wrap this code in a seperate function.</p>
   {{#prism language="javascript" class="line-numbers"}}
-    var setNextPlayer = function setNextPlayer(){
+    var setNextPlayer = function(){
       ...
     }
   {{/prism}}
@@ -68,4 +68,9 @@
   {{#prism language="javascript" class="line-numbers"}}
     setNextPlayer();
   {{/prism}}
+  <p>Have you noticed that when you click a box twice, the symbol in the box will change? That makes sense, because everytime you click the box player property of the box is again defined. So in the next step we will disable clicking a box when there is already a player set.</p>
+  {> summary}}
+  <p>We now know how to use a Meteor Session.</p>
+  <p>We learned about if statements.</p>
+  <p>We know can define functions, local variables and both how to use them.</p>
 </template>

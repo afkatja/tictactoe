@@ -10,7 +10,7 @@
   <p>Box 1, box 2 and box 3 form one row. Box 1, box 4 and box 7 form a column. Box 1, box 5 and box 9 form a diagonal. And so on for all the possible combinations (there are 3 for rows, 3 for columns and 2 for diagonals, for each symbol).</p>
   <p>This can be translated into code:</p>
   {{#prism language="javascript" class="line-numbers"}}
-  function hasWon() {
+  var hasWon = function() {
     var boxes = Boxes.find({}).fetch(); //make a plain Array of our Collection
     if (boxes[0].player == 'X' && boxes[1].player == 'X' && boxes[2].player == 'X') return true; //we have a winner
     if (boxes[3].player == 'X' && boxes[4].player == 'X' && boxes[5].player == 'X') return true; //we have a winner
@@ -24,7 +24,11 @@
   <p>We ended up now copying and pasting 16 combinations. When we were trying to display 9 boxes in our grid, remeber we did not want to do this copying and pasting?</p>
   <p>We can begin with using the variable we made for the current player symbol. This should reduce our code to 8 lines.</p>
   {{#prism language="javascript" class="line-numbers"}}
-    Session.get('player');
+    var player = Session.get('player');
+  {{/prism}}
+  <p>And use it to compare it with the player values in the boxes.</p>
+  {{#prism language="javascript" class="line-numbers"}}
+    boxes[0].player == player
   {{/prism}}
   <h2>Optimize even more</h2>
   <p>We already discussed the <code>for</code> loop in step 2. The loops helps us reduce duplication. We can look how many times the repetition occurs and use the loop in place. So we have 3 boxes in each row, 3 boxes in each column and 3 boxes in each diagonal. This we can easily translate into code:</p>
@@ -34,4 +38,29 @@
       //box.player; TODO
     }
   {{/prism}}
+
+  <p>Your function should look like this</p>
+  {{#prism language="javascript" class="line-numbers"}}
+    var hasWon = function() {
+      var boxes = Boxes.find().fetch();
+      var player = Session.get('player');
+      if(boxes[0] && boxes[0].player) {
+        if (boxes[0].player == player && boxes[1].player == player && boxes[2].player == player) return true;
+        if (boxes[3].player == player && boxes[4].player == player && boxes[5].player == player) return true;
+        //... 6 more rules
+      }
+      return false;
+    };
+{{/prism}}
+<p>And you can check if someone has won in box click-event handler. Make sure that the function is called after you have updated the collection, but before you switch players.</p>
+{{#prism language="javascript" class="line-numbers"}}
+  Boxes.update(this._id, { $set: { player: sessionPlayer } });
+  if(hasWon()) {
+    console.log("Player", Session.get('player'),"has won");
+  }
+  setNextPlayer();
+{{/prism}}
+
+{{>summary}}
+<p>We added the game logic and we do know when a player has won.</p>
 </template>

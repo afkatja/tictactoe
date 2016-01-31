@@ -13,9 +13,9 @@
   {{#prism language="javascript" class="line-numbers"}}
     // not the ultimate code
     Template.box.helpers({
-      'property': function () {
+      'disabled': function () {
         //if the box is filled, we cannot click there anymore
-        return condition;
+        return this.player;
       }
     });
 
@@ -54,5 +54,5 @@
   <p>In the next step, we will determine if the game has a winner</p>
 
   {{> summary}}
-  <p>In this step, we learnt to  use the <code>if</code> statements within our templates as well as in the javascript code.</p>
+  <p>In this step, we learnt to  use the <code>if</code> statements within our templates.</p>
 </template>
