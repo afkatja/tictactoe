@@ -1,4 +1,4 @@
-Boxes = new Meteor.Collection('boxes');
+Boxes = new Mongo.Collection('boxes');
 
 if (Meteor.isClient) {
   Template.gameboard.helpers({
@@ -6,7 +6,7 @@ if (Meteor.isClient) {
       return Boxes.find({});
     }
   });
-  
+
   Template.gameboard.events({
     click: function() {
       console.log('Clicked the gameboard');
