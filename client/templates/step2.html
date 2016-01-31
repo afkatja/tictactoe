@@ -38,10 +38,24 @@
   {{#prism language="javascript" class="line-numbers" data-line="1-2, 4, 5"}}
     console.log('inserted box with index', i);
   {{/prism}}
-  <p>You can then open the browser's console by right clicking on the page and selecting <code>Inspect</code> - it looks like this: <img src="http://blog.teamtreehouse.com/wp-content/uploads/2014/01/dev-tools-console.png"></p>
-  <p>Add logging to both server and client code. Where is the server code logged. Where is the client code logged?</p>
+  <p>
+    If you added the code to the server part, the logs will show in the terminal. You can also access the content of the collection from the client.
+  </p>
+  {{#prism language="javascript" class="line-numbers" data-line="1-2, 4, 5"}}
+    if (Meteor.isClient) {
+      console.log('Boxes', Boxes.find({}).fetch());
+      ...
+  {{/prism}}
+  <p>You can then open the browser's console by right clicking on the page and selecting <code>Inspect</code> - it looks like this: <img src="http://blog.teamtreehouse.com/wp-content/uploads/2014/01/dev-tools-console.png">
+  This is the easiest way to debug your code.
+  We are nearly done with writing server code in our application. Most of the code that we will write, will be Client code. In our case this is the browser. Other possible clients are an android or i-phone.
+  </p>
+  <p>
+    Note: The <code>Boxes.find({}).fetch()</code> part of the logging above will get all values in the Boxes-Collection.
+  </p>
 
-  <p>Also clear the Boxes Collection so you can be sure that it is really empty</p>
+  <h2>Clear the collection</h2>
+  <p>To make sure that there are always only 9 boxes in the collection we should clear the boxes collection on every startup up of the server. To do that add the following line to server code.</p>
   {{#prism language="javascript" class="line-numbers"}}
     Boxes.remove({});
   {{/prism}}
@@ -62,6 +76,9 @@
   }
   {{/prism}}
   <p>In the following step, we will display the boxes we have just made, in our <code>html</code> file.</p>
+  <p>
+    Note: You might see some error in the console: <code>Uncaught TypeError: Cannot read property 'helpers' of undefined</code>. Don't worry, we will fix this in the next part.
+  </p>
 
   {{> summary}}
   <p>We now know about Collections within Meteor that allow us to store, retrieve and manipulate data that we can access from our templates.</p>
