@@ -14,15 +14,15 @@
   <p>Try to display in the console which box you have clicked either by referencing the event target or by using the <code>this</code> keyword.</p>
   <p><code>This</code> is always related to the context of "where you are" at this moment. Read more about <code>this</code> on <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this">MDN</a></p>
 
-  <h2>This is an example setup</h2>
+  <h2>Logging the clickevent</h2>
   {{#prism language="javascript" class="line-numbers"}}
-    &lt;template name="test"&gt;
-      &lt;button class=&quot;test&quot;&gt;Test&lt;/button&gt;
+    &lt;template name="box"&gt;
+      &lt;div class=&quot;box&quot;&gt;Test&lt;/div&gt;
     &lt;/template&gt;
   {{/prism}}
 
   {{#prism language="javascript" class="line-numbers"}}
-    Template.test.events({
+    Template.box.events({
       click: function(event){
         console.log(event, this);
       }
