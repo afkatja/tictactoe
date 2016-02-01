@@ -1,7 +1,8 @@
 # Tic tac toe
-## GirlCode meets Meteor workshop
 
 ![](/public/tic_tac_toe.png)
+
+## GirlCode meets Meteor workshop
 
 Here you can find the links you will need to get started and follow along the workshop.
 
