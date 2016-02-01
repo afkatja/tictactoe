@@ -5,7 +5,7 @@
   <p>You need to add a player in the box template in html</p>
   {{#prism language="javascript" class="line-numbers"}}
     &lt;template name=&quot;box&quot;&gt;
-      &lt;div class=&quot;box&quot;&gt;&#123;&#123;player&#125;&#125;&lt;/box&gt;
+      &lt;div class=&quot;box&quot;&gt;&#123;&#123;player&#125;&#125;&lt;/div&gt;
     &lt;/template&gt;
   {{/prism}}
   You need to fill this player variable with a helper in the js-code.
@@ -27,13 +27,12 @@
   <p>Let's have a look at the first part of this method: <code>id</code>. The Collections needs to know which record to update, so the <code>id</code> is a unique identifier assigned to each record.</p>
   <p>How do we know the id? Remember, in step 4, when we clicked on the box, we had access to <code>this</code> which in the context of the click event refers to the box we clicked on. <code>this._id</code> gives us the identifier of that box within the Collection.</p>
   <p>Now, the second part of the update method. You can perform various operations when updating a collection, like <code>$set, $unset, $mul</code>, etc. See detailed description <a href="">here</a>. When using <code>$set</code>, we add a field to the record, in our case field called <code>player</code>.</p>
-  <p>We need to assign a value to this field. And this is when we are using the Session variable we talked about in step 5.</p>
+  <p>Later we will fill this field dynamically, but for now we just add the string 'X' into it. </p>
   <p>The code to set the player symbol (we called it <code>player</code>, but you can use whatever name you consider fit in this case) should look something like this:</p>
   {{#prism language="javascript" class="line-numbers"}}
     Template.box.events({
-      'click': function(){
-        var player = Session.get('player');
-        Boxes.update(this._id, {$set: { player: player } });
+      click: function(){
+        Boxes.update(this._id, {$set: { player: 'X' } });
       }
     });
   {{/prism}}
