@@ -7,11 +7,11 @@
     The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game.
   </blockquote>
   <p>Can you think (or draw) of the possible winning combinations? (The above wikipedia article has them all drawn out for you)</p>
-  <p>Box 1, box 2 and box 3 form one row. Box 1, box 4 and box 7 form a column. Box 1, box 5 and box 9 form a diagonal. And so on for all the possible combinations (there are 3 for rows, 3 for columns and 2 for diagonals, for each symbol).</p>
+  <p>Box 0, box 1 and box 2 form one row. Box 0, box 3 and box 6 form a column. Box 0, box 4 and box 8 form a diagonal. And so on for all the possible combinations (there are 3 for rows, 3 for columns and 2 for diagonals, for each symbol).</p>
   <p>This can be translated into code:</p>
   {{#prism language="javascript" class="line-numbers"}}
   var hasWon = function() {
-    var boxes = Boxes.find({}).fetch(); //make a plain Array of our Collection
+    var boxes = Boxes.find().fetch(); //make a plain Array of our Collection
     if (boxes[0].player == 'X' && boxes[1].player == 'X' && boxes[2].player == 'X') return true; //we have a winner
     if (boxes[3].player == 'X' && boxes[4].player == 'X' && boxes[5].player == 'X') return true; //we have a winner
     //etc...

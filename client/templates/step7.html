@@ -11,7 +11,6 @@
   <p>You can use the same syntax to check if a condition is met, in your template. This condition should be made available for the template within its <code>helpers</code>, like we already made <code>player</code> available for display in the box.</p>
 
   {{#prism language="javascript" class="line-numbers"}}
-    // not the ultimate code
     Template.box.helpers({
       'disabled': function () {
         //if the box is filled, we cannot click there anymore
@@ -25,7 +24,6 @@
   {{/prism}}
   <p>In order to disable clicking in the box, we should add some code in the javascript where we update the Boxes collection on click. You only want to update the collection (set a new property <code>player</code> to the box you just clicked) <strong>if</strong> the box is empty. If there already is a property, just do nothing.</p>
   {{#prism language="javascript" class="line-numbers"}}
-    //not the ultimate code
     if(box.player) {
       return; //do nothing
     }
