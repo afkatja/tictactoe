@@ -20,8 +20,9 @@
   {{/prism}}
   <p>We are making a function that we call <code>hasWon</code> that looks at the gameboard and returns if there is a winner.</p>
   <p>Whether we have a winner is called the <code>state</code>. Another example of a state in our game is whether a box is filled or empty.</p>
+
   <h2>Let's optimize</h2>
-  <p>We ended up now copying and pasting 16 combinations. When we were trying to display 9 boxes in our grid, remeber we did not want to do this copying and pasting?</p>
+  <p>We ended up now copying and pasting 16 combinations, because there would be 8 comparisons with 'X' and 8 comparisons with 'O'. When we were trying to display 9 boxes in our grid, remeber we did not want to do this copying and pasting?</p>
   <p>We can begin with using the variable we made for the current player symbol. This should reduce our code to 8 lines.</p>
   {{#prism language="javascript" class="line-numbers"}}
     var player = Session.get('player');

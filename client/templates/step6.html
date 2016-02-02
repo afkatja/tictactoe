@@ -5,7 +5,7 @@
   <h2>Session</h2>
   <p>We will use Meteor's <a href="http://docs.meteor.com/#/full/session">Session</a> to store the currect player.</p>
   <blockquote cite="http://meteortips.com/first-meteor-tutorial/sessions/">
-    ...sessions allow us to store small pieces of data that is not saved to the database and and won’t be remembered on return visits
+    ...sessions allow us to store small pieces of data that is not saved to the database and won’t be remembered on return visits
   </blockquote>
   <p>The syntax is simple:</p>
   {{#prism language="javascript" class="line-numbers"}}
@@ -64,12 +64,12 @@
       ...
     }
   {{/prism}}
-  <p>And call it after you have updated the collection.</p>
+  <p>And call it after you have updated the collection. (<code>Boxes.update(...)</code>)</p>
   {{#prism language="javascript" class="line-numbers"}}
     setNextPlayer();
   {{/prism}}
   <p>Have you noticed that when you click a box twice, the symbol in the box will change? That makes sense, because everytime you click the box, the player property of the box is again defined. So in the next step we will disable clicking a box when there is already a player set.</p>
-  {> summary}}
+  {> summary}
   <p>We now know how to use a Meteor Session.</p>
   <p>We learned about <code>if</code> statements.</p>
   <p>We know can define functions, local variables and both how to use them.</p>
