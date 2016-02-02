@@ -1,6 +1,6 @@
 <template name="step9">
   <h1>Adding a reset button</h1>
-  <p>
+  <p class="flow-text">
     We want to reset the game with a button, so that we can start a new game if there is a winner or just because.
   </p>
   <h2>Adding a button</h2>
@@ -25,17 +25,17 @@
     });
   {{/prism}}
   <p>
-    This will do the trick. Notice that the event is now a click-event on the class 'reset-game'. Previously we haven't used the single quote to define the click event. But now that we use also a class to define which object has been clicked, we needed to add the single quotes.
+    This will do the trick. Notice that the event is now a click-event on the element with classname 'reset-game'. Previously we haven't used the single quote to define the click event. But now that we use also a class to define which object has been clicked, we needed to add the single quotes. You can use double quotes, just be consistent.
   </p>
   <h2>Reseting the game</h2>
   <p>
-    The 'resetGame' function should now set all player values of each box to 'null'. You have already seen the things that are necessary. The steps should be:
-  </p>
+    The <code>resetGame</code> function should now set all player values of each box to <code>null</code>. Read more about <code>null</code> on <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/null">MDN</a></p>
+  <p>You have already seen the things that are necessary. The steps should be:</p>
   <ul class="listing">
     <li>find all boxes with <code>Boxes.find().fetch()</code></li>
     <li>Loop over the boxes with <code>for (var i = 0; i &lt; boxes.length; i++){...}</code></li>
     <li>Update each box with <code>Boxes.update(...)</code></li>
-    <li>To start always with the same player set the player on the Session variable with <code>Session.set('player',...)</code></li>
+    <li>To always start with the same player, set the player on the <code>Session</code> variable with <code>Session.set('player', ...)</code></li>
   </ul>
   <p>
     Note: Remember to use the <code>console.log(...)</code> to debug your code.

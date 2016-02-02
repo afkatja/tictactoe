@@ -30,14 +30,6 @@
   {{#prism language="javascript" class="line-numbers"}}
     boxes[0].player == player
   {{/prism}}
-  <h2>Optimize even more</h2>
-  <p>We already discussed the <code>for</code> loop in step 2. The loops helps us reduce duplication. We can look how many times the repetition occurs and use the loop in place. So we have 3 boxes in each row, 3 boxes in each column and 3 boxes in each diagonal. This we can easily translate into code:</p>
-  {{#prism language="javascript" class="line-numbers"}}
-    for(var i = 0; i &lt; 3; i++){
-      var box = Boxes.findOne({boxIndex: i});
-      //box.player; TODO
-    }
-  {{/prism}}
 
   <p>Your function should look like this</p>
   {{#prism language="javascript" class="line-numbers"}}
@@ -52,7 +44,7 @@
       return false;
     };
 {{/prism}}
-<p>And you can check if someone has won in box click-event handler. Make sure that the function is called after you have updated the collection, but before you switch players.</p>
+<p>And you can check if someone has won in box click-event handler. Make sure that the function is called <i>after</i> you have updated the collection, but <i>before</i> you switch players.</p>
 {{#prism language="javascript" class="line-numbers"}}
   Boxes.update(this._id, { $set: { player: sessionPlayer } });
   if(hasWon()) {
@@ -64,5 +56,5 @@
 {{/prism}}
 
 {{>summary}}
-<p>We added the game logic and we do know when a player has won.</p>
+<p>We added the game logic and we know when a player has won.</p>
 </template>
