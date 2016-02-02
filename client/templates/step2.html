@@ -1,7 +1,7 @@
 <template name="step2">
   <h1>More boxes!</h1>
-  <p>Open the js-file.</p>
-  <p>In this step, we will be creating more boxes for our gameboard.</p>
+  <p class="flow-text">In this step, we will be creating more boxes for our gameboard.</p>
+  <p>Open the javascript file.</p>
   <p>There is currently only one box on our gameboard. For tictactoe we need 9 of them. But we don't want to write 9 <code>div</code>s in our code, do we?</p>
 
   <h2>Create a collection</h2>
@@ -16,7 +16,7 @@
     //do something here
   }
   {{/prism}}
-  Read more about it <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/for">here</a>.
+  Read more about the javascript loop <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/for">here</a>.
   <h2>Populate the collection</h2>
   <p>In the server code you can fill the collection. Add an object with a <code>boxIndex</code> to it:</p>
   {{#prism language="javascript" class="line-numbers" data-line="1-2, 4, 5"}}
@@ -48,10 +48,9 @@
   {{/prism}}
   <p>You can then open the browser's console by right clicking on the page and selecting <code>Inspect</code> - it looks like this: <img src="http://blog.teamtreehouse.com/wp-content/uploads/2014/01/dev-tools-console.png">
   This is the easiest way to debug your code.
-  We are nearly done with writing server code in our application. Most of the code that we will write, will be Client code. In our case this is the browser. Other possible clients are an android or i-phone.
-  </p>
+  We are nearly done with writing server code in our application. Most of the code that we will write, will be Client code.</p>
   <p>
-    Note: The <code>Boxes.find({}).fetch()</code> part of the logging above will get all values in the Boxes-Collection.
+    Note: The <code>Boxes.find({}).fetch()</code> part of the logging above will get all values in the <code>Boxes</code> Collection.
   </p>
 
   <h2>Clear the collection</h2>

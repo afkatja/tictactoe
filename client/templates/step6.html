@@ -30,9 +30,9 @@
     var sessionPlayer = Session.get('player');
     Boxes.update(this._id, { $set: { player: sessionPlayer } });
   {{/prism}}
-  <p>Noticing the 'var' infront ot the 'sessionPlayer'. That is how local variables are defined. In contrast to session variables, which are available in the whole client code, local variables (defined with a 'var') are only available within the context they are defined in. The curly brackets '{}' defining such a context.</p>
-  <p>Local variables are often used to structure code and make it more readable. You probably will see these variables a lot. So look out for the 'var'.
-    If you define a local variable give it a name that makes sense. Not something like 'foo' or 'bla'. Also not some abreviation, which might makes sense at the moment. In this way
+  <p>Noticing the 'var' infront ot the 'sessionPlayer'. That is how local variables are defined. In contrast to session variables, which are available in the whole client code, local variables (defined with a <code>var</code>) are only available within the context they are defined in. The curly brackets <code>{}</code> defining such a context.</p>
+  <p>Local variables are often used to structure code and make it more readable. You probably will see these variables a lot. So look out for the <code>var</code>.
+    If you define a local variable give it a name that makes sense. Not something like <code>foo</code> or <code>bla</code>. Also not some abreviation, which might makes sense at the moment. In this way
     other people who will read your code can easily understand your code.</p>
 
   <h2>Do the switch</h2>
@@ -68,9 +68,9 @@
   {{#prism language="javascript" class="line-numbers"}}
     setNextPlayer();
   {{/prism}}
-  <p>Have you noticed that when you click a box twice, the symbol in the box will change? That makes sense, because everytime you click the box player property of the box is again defined. So in the next step we will disable clicking a box when there is already a player set.</p>
+  <p>Have you noticed that when you click a box twice, the symbol in the box will change? That makes sense, because everytime you click the box, the player property of the box is again defined. So in the next step we will disable clicking a box when there is already a player set.</p>
   {> summary}}
   <p>We now know how to use a Meteor Session.</p>
-  <p>We learned about if statements.</p>
+  <p>We learned about <code>if</code> statements.</p>
   <p>We know can define functions, local variables and both how to use them.</p>
 </template>
