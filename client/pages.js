@@ -16,6 +16,8 @@ Template.mainnav.events({
   'click button': function () {
     //`this` is the value of the dynamic template
     currentStep.set(this);
+    //scroll back to top when coming from pagination links in the footer
+    document.body.scrollTop = 0;
   }
 });
 
@@ -46,9 +48,21 @@ Template.pagination.helpers({
 });
 
 Template.pagination.events({
-  'click li button': function(e){
-    console.log(this.toString());
+  'click .step': function(e){
+    console.log('click step', this.toString());
     currentStep.set(this);
+  },
+  'click .prev': function () {
+    var currentPage = currentStep.get().toString();
+    var currentIndex = steps.indexOf(currentPage);
+    var prev = steps[currentIndex - 1 || 0];
+    currentStep.set(prev);
+  },
+  'click .next': function () {
+    var currentPage = currentStep.get().toString();
+    var currentIndex = steps.indexOf(currentPage);
+    var next = steps[currentIndex + 1 || steps.length];
+    currentStep.set(next);
   }
 });
 

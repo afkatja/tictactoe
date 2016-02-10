@@ -4,6 +4,7 @@
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic|Inconsolata|Amatic+SC:400,700">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
   <div class="page-container">
@@ -26,16 +27,6 @@
       {{/each}}
     </ul>
   </nav>
-</template>
-
-<template name="pagination">
-  <ul class="list-plain horizontal pagination">
-    {{#each steps}}
-      <li class="{{activeClass}}">
-        <button type="button" class="waves-effect">step {{addOne @index}}</button>
-      </li>
-    {{/each}}
-  </ul>
 </template>
 
 <template name="navItem">
