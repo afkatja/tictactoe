@@ -29,39 +29,33 @@ Template.navItem.helpers({
   }
 });
 
+var currentIndex = function () {
+  if(currentStep.get()) {
+    return routes.indexOf(currentStep.get().toString());
+  }
+  return -1;
+};
+
 Template.pagination.helpers({
-  steps: function(){
-    return steps;
+  disabledClassPrev: function(){
+    if(currentIndex() == 0) {
+      return 'disabled';
+    }
   },
-  activeClass: function () {
-    if(this.toString() == currentStep.get().toString()){
-      return 'active';
+  disabledClassNext: function(){
+    if(currentIndex() == routes.length) {
+      return 'disabled';
     }
-  }/*,
-  page: function () {
-    console.log(this, this.index);
-    if(this == steps[0]) {
-      return 'start';
-    }
-    return 'step ' + steps[this.index];
-  }*/
+  }
 });
 
 Template.pagination.events({
-  'click .step': function(e){
-    console.log('click step', this.toString());
-    currentStep.set(this);
-  },
   'click .prev': function () {
-    var currentPage = currentStep.get().toString();
-    var currentIndex = steps.indexOf(currentPage);
-    var prev = steps[currentIndex - 1 || 0];
+    var prev = routes[currentIndex() - 1];
     currentStep.set(prev);
   },
   'click .next': function () {
-    var currentPage = currentStep.get().toString();
-    var currentIndex = steps.indexOf(currentPage);
-    var next = steps[currentIndex + 1 || steps.length];
+    var next = routes[currentIndex() + 1];
     currentStep.set(next);
   }
 });
