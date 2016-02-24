@@ -1,6 +1,6 @@
 <template name="step3">
   <h1>Display the grid!</h1>
-  <p>In this step, we will link javascript and html together.</p>
+  <p class="flow-text">In this step, we will link javascript and html together.</p>
   <h2>The syntax</h2>
   <p>We already saw this syntax in our <code>html</code>:</p>
   {{#prism language="javascript" class="line-numbers"}}
@@ -17,7 +17,7 @@
   {{/prism}}
   <p>You can read more about templates in Meteor <a href="https://www.discovermeteor.com/blog/a-guide-to-meteor-templates-data-contexts/">on this blog</a> where you can find a lot more articles about Meteor.</p>
   <p>There are events and helpers objects for every template that is made in the html. The <code>hello</code> template is not there anymore. Now you can change the functions so that the new templates are used.</p>
-  <p>Create a box template and include it into the gamboard template just like the gameboard is included into the body of the html.</p>
+  <p>Create a "box" template and include it into the "gamboard" template just like the gameboard is included into the body of the html.</p>
   <p>You should now have this result:</p>
   {{#prism language="javascript" class="line-numbers" data-line="1-2, 4, 5"}}
     &lt;template name=&quot;gameboard&quot;&gt;
@@ -50,9 +50,23 @@
   {{/prism}}
   <p>You can see the <a href="https://www.meteor.com/tutorials/blaze/templates">example</a> given on the meteor introduction page to get an idea how to do that.</p>
 
-  <p> You should now see 9 boxes in the gameboad.</p>
+  <p>
+    <figure>
+      <img src="/gameboard.png" alt="">
+      <figcaption>You should now see 9 boxes in the gameboad.</figcaption>
+    </figure>
+  </p>
   {{> summary}}
-  <p>After creating a template, we need to manually include it within the interface.</p>
-  <p>By creating helper functions, we can execute code from within a template, which means we are creating a dynamic interface. </p>
-  <p>If a helper function returns an array of data or a Collection, we can loop through that data from within a template using the <code>each</code> syntax.</p>
+  <ul class="listing">
+    <li>
+      <p>After creating a template, we need to manually include it within the interface.</p></li>
+    <li>
+      <p>By creating helper functions, we can execute code from within a template, which means we are creating a dynamic interface. </p>
+    </li>
+    <li>
+      <p>If a helper function returns an array of data or a Collection, we can loop through that data from within a template using the <code>each</code> syntax.</p>
+    </li>
+  </ul>
+  {{> examplelink url="https://github.com/afkatja/tictactoe/tree/master/step3"}}
+  <p>In the next step, we will be registering the click event on each box on the gameboard.</p>
 </template>

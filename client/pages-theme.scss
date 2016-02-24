@@ -25,6 +25,7 @@ body {
 
 code, pre, .code {
   font-family: 'Inconsolata', monospace;
+  font-size: 1em;
   color: #ccc;
 }
 
@@ -65,8 +66,20 @@ a {
   border-bottom: 1px solid;
 }
 
+figure {
+  max-width: 100%;
+  text-align: center;
+  figcaption {
+    text-align: right;
+    display: block;
+    margin-top: 10px;
+    color: $color-green;
+    font-size: 12px;
+  }
+}
 img {
   margin: 5px;
+  max-width: 100%;
 }
 
 .info-container {
@@ -108,6 +121,9 @@ img {
     }
     &.info-hidden {
       transform: scaleX(0);
+    }
+    code {
+      color: $color-green-dark;
     }
   }
 }
@@ -172,7 +188,7 @@ footer {
 }
 
 .listing li {
-  list-style-type: circle;
+  list-style-type: disc;
   padding-left: 10px;
   margin-left: 20px;
 }

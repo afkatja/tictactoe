@@ -46,16 +46,19 @@
   {{/prism}}
   {{> infobutton ref="note1" text="Note: The <code>Boxes.find({}).fetch()</code> part will get all values in the <code>Boxes</code> Collection."}}
 
-  <p>You can then open the browser's console by right clicking on the page and selecting <code>Inspect</code> and then choosing the <code>Console</code> tab - it looks like this: <img src="http://blog.teamtreehouse.com/wp-content/uploads/2014/01/dev-tools-console.png">
-  This is the easiest way to debug your code.</p>
+  <p>You can then open the browser's console by right clicking on the page and selecting <code>Inspect</code> and then choosing the <code>Console</code> tab - it looks like this:</p>
+  <figure>
+    <img src="http://blog.teamtreehouse.com/wp-content/uploads/2014/01/dev-tools-console.png">
+    <figcaption>This is the easiest way to debug your code.</figcaption>
+  </figure>
   <p>We are nearly done with writing server code in our application. Most of the code that we will write, will be Client code.</p>
 
   <h2>Clear the collection</h2>
-  <p>To make sure that there are always only 9 boxes in the collection we should clear the boxes collection on every startup up of the server. To do that add the following line to server code.</p>
+  <p>To make sure that there are always only 9 boxes in the collection we should clear the boxes collection on every startup up of the server. To do that, add the following line to the server part of the javascript code.</p>
   {{#prism language="javascript" class="line-numbers"}}
     Boxes.remove({});
   {{/prism}}
-  <p>So now you should have the following code running from your javascript file:</p>
+  <p>So now you should have the following code in your javascript file:</p>
   {{#prism language="javascript" class="line-numbers"}}
   if (Meteor.isServer) {
     Meteor.startup(function () {
@@ -71,18 +74,25 @@
     });
   }
   {{/prism}}
-  <p>
-    In this step there is mainly code added to the server code in the javascript file. This will be the only changes in this part of the code within this tutorial.
-     In the following steps we will only add client code to the javscript file.
-     Notice that there is already some client code. Leave it as it is for now, we will come back to it later.
-  </p>
-  <p>In the following step, we will display the boxes we have just made, in our <code>html</code> file.</p>
-  <p>
-    Note: You might see some error in the console: <code>Uncaught TypeError: Cannot read property 'helpers' of undefined</code>. Don't worry, we will fix this in the next part.
-  </p>
+  {{> infobutton ref="note2" text="Note: You might see some error in the console: <code>Uncaught TypeError: Cannot read property 'helpers' of undefined</code>. Don't worry, we will fix this in the next part."}}
 
   {{> summary}}
-  <p>We now know about Collections within Meteor that allow us to store, retrieve and manipulate data that we can access from our templates.</p>
-  <p>We used the the <code>find()</code> and <code>count()</code> functions on the Collection to return the number of boxes in the <code>Boxes</code> collection.</p>
-  <p>We also know that a Meteor application can run on both the client and the server. We can use the <code>isClient</code> and <code>isServer</code> conditionals to control where the code is run.</p>
+  <ul class="listing">
+    <li>
+      <p>We now know about Collections within Meteor that allow us to store, retrieve and manipulate data that we can access from our templates.</p>
+    </li>
+    <li>
+      <p>We used the the <code>find()</code> and <code>count()</code> functions on the Collection to return the number of boxes in the <code>Boxes</code> collection.</p>
+    </li>
+    <li>
+      <p>We also know that a Meteor application can run on both the client and the server. We can use the <code>isClient</code> and <code>isServer</code> conditionals to control where the code is run.</p>
+    </li>
+    <li>
+      <p>
+        In this step we mainly dealt with code in the server side part of the javascript file. These will be the only changes we make on this part within this tutorial. In the following steps we will only be dealing with client side code to the javscript file.
+      </p>
+    </li>
+  </ul>
+  {{> examplelink url="https://github.com/afkatja/tictactoe/tree/master/step2"}}
+  <p>In the following step, we will display the boxes we have just made, in our <code>html</code> file.</p>
 </template>
