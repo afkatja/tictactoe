@@ -30,6 +30,8 @@ code, pre, .code {
 
 pre[class*=language] {
   overflow: hidden;
+  background: transparent;
+  font-family: 'Inconsolata', monospace;
   .line-highlight {
     display: none;
   }
@@ -65,6 +67,49 @@ a {
 
 img {
   margin: 5px;
+}
+
+.info-container {
+  position: relative;
+  .info-button {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background: $color-green;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 100%;
+    border: none;
+    font-family: 'Inconsolata', monospace;
+  }
+  .info {
+    position: absolute;
+    top: 0;
+    left: 50px;
+    margin: -10px 0 0;
+    line-height: 30px;
+    background: #ccc;
+    color: $color-green-dark;
+    border-radius: 5px;
+    padding: 10px;
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: all .5s ease-in-out;
+    &:before {
+      content: '';
+      position: absolute;
+      left: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-color: transparent #ccc transparent transparent;
+      border-style: solid;
+      border-width: 10px;
+    }
+    &.info-hidden {
+      transform: scaleX(0);
+    }
+  }
 }
 
 .pagination,

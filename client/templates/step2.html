@@ -1,24 +1,23 @@
 <template name="step2">
   <h1>More boxes!</h1>
-  <p class="flow-text">In this step, we will be creating more boxes for our gameboard.</p>
-  <p>Open the javascript file.</p>
+  <p class="flow-text">In this step, we will be creating the grid (or matrix) for our gameboard. In Atom, open the <code>tictactoe.js</code> file.</p>
   <p>There is currently only one box on our gameboard. For tictactoe we need 9 of them. But we don't want to write 9 <code>div</code>s in our code, do we?</p>
 
   <h2>Create a collection</h2>
-  <p>Because we are using Meteor, we will use something built in, which is called <code>Collection</code>. This will be the place to store all the boxes.</p>
+  <p>Because we are using Meteor, we will use something built in, which is called <code>Collection</code>. Read more about Collections <a href="http://docs.meteor.com/#/full/mongo_collection">here</a>. The Collection will be the place to store all the boxes.</p>
   {{#prism language="javascript" class="line-numbers" data-line="1-2, 4, 5"}}
     Boxes = new Mongo.Collection('boxes');
   {{/prism}}
-  <p>Place this at the top of the js-file. Read more about Collections <a href="http://docs.meteor.com/#/full/mongo_collection">here</a></p>
+  <p>Place this at the top of the <code>js</code> file. </p>
   <p>In order to make 9 boxes, you need to use a <code>loop</code>, like this:</p>
   {{#prism language="javascript" class="line-numbers" data-line="1-2, 4, 5"}}
   for(var i = 0; i &lt; 9; i++){
     //do something here
   }
   {{/prism}}
-  Read more about the javascript loop <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/for">here</a>.
+  <p>Read more about the javascript loop <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/for">here</a>.</p>
   <h2>Populate the collection</h2>
-  <p>In the server code you can fill the collection. Add an object with a <code>boxIndex</code> to it:</p>
+  <p>In the server code you can fill the collection.</p>
   {{#prism language="javascript" class="line-numbers" data-line="1-2, 4, 5"}}
     //fill 9 cells
     if(Boxes.find({}).count() === 0) {
@@ -27,8 +26,7 @@
       }
     }
   {{/prism}}
-  <p>We add the collection on the server code so that it is created only once. Read about Client and Server parts of Meteor application <a href="https://www.discovermeteor.com/blog/what-goes-where/">here</a>.
-  The most part we will do today will be on the client.</p>
+  <p>We add the collection on the server code so that it is created only once. You can read about Client and Server parts of Meteor application <a href="https://www.discovermeteor.com/blog/what-goes-where/">here</a>.</p>
   <blockquote cite="http://meteortips.com/first-meteor-tutorial/templates/">
     When the code is executed on the server, a collection is created inside the Mongo database. This is where our data is stored. When the code is executed from inside the user’s web browser though — on the client-side — a local copy of that collection is created on that user’s computer. As a result, when the user interacts with the database, they’re actually interacting with their local copy. This is partly why Meteor applications are real-time by default. Data is manipulated on the user’s local machine and then invisibly synced in the background with the server-side database.
   </blockquote>
@@ -46,12 +44,11 @@
       console.log('Boxes', Boxes.find({}).fetch());
       ...
   {{/prism}}
-  <p>You can then open the browser's console by right clicking on the page and selecting <code>Inspect</code> - it looks like this: <img src="http://blog.teamtreehouse.com/wp-content/uploads/2014/01/dev-tools-console.png">
-  This is the easiest way to debug your code.
-  We are nearly done with writing server code in our application. Most of the code that we will write, will be Client code.</p>
-  <p>
-    Note: The <code>Boxes.find({}).fetch()</code> part of the logging above will get all values in the <code>Boxes</code> Collection.
-  </p>
+  {{> infobutton ref="note1" text="Note: The <code>Boxes.find({}).fetch()</code> part will get all values in the <code>Boxes</code> Collection."}}
+
+  <p>You can then open the browser's console by right clicking on the page and selecting <code>Inspect</code> and then choosing the <code>Console</code> tab - it looks like this: <img src="http://blog.teamtreehouse.com/wp-content/uploads/2014/01/dev-tools-console.png">
+  This is the easiest way to debug your code.</p>
+  <p>We are nearly done with writing server code in our application. Most of the code that we will write, will be Client code.</p>
 
   <h2>Clear the collection</h2>
   <p>To make sure that there are always only 9 boxes in the collection we should clear the boxes collection on every startup up of the server. To do that add the following line to server code.</p>
