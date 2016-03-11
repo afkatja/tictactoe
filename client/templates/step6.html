@@ -1,7 +1,7 @@
 <template name="step6">
   <h1>Switch between players</h1>
-  <p class="flow-text">In this step, we will try to alternate X and O on each click.</p>
-  <p> We need to store a global variable that stores the currect player. And which will be updated everytime a box is clicked.</p>
+  <p class="flow-text">In this step, we will try to alternate "X" and "O" on each click.</p>
+  <p> We need to have a global variable that stores the currect player. A variable that will be updated everytime a box is clicked.</p>
   <h2>Session</h2>
   <p>We will use Meteor's <a href="http://docs.meteor.com/#/full/session">Session</a> to store the currect player.</p>
   <blockquote cite="http://meteortips.com/first-meteor-tutorial/sessions/">
@@ -15,35 +15,31 @@
   {{#prism language="javascript" class="line-numbers"}}
     Session.get(name);
   {{/prism}}
-  <p>Session is independent of templates or events and it has to live in the Client.</p>
-  <p>When a Session variable is set in a template, you can also use it in other templates.</p>
+  <p>Session is independent of templates or events. When a Session variable is set in one template, you can also use it in other templates. Session belongs in the Client part of the code.</p>
 
   <h2>Set and get the player</h2>
-  <p>We will starting by intializing the Session on start up of the client. Like this:</p>
+  <p>We will start by intializing the Session on start up of the client. Like this:</p>
   {{#prism language="javascript" class="line-numbers"}}
   if (Meteor.isClient) {
     Session.set('player', 'X');
-    ...
   {{/prism}}
-  <p>Now everytime the collection is updated, the session variable should be used.</p>
+  <p>Now everytime the collection is updated, the Session variable should be used.</p>
   {{#prism language="javascript" class="line-numbers"}}
     var sessionPlayer = Session.get('player');
     Boxes.update(this._id, { $set: { player: sessionPlayer } });
   {{/prism}}
-  <p>Noticing the 'var' infront ot the 'sessionPlayer'. That is how local variables are defined. In contrast to session variables, which are available in the whole client code, local variables (defined with a <code>var</code>) are only available within the context they are defined in. The curly brackets <code>{}</code> defining such a context.</p>
-  <p>Local variables are often used to structure code and make it more readable. You probably will see these variables a lot. So look out for the <code>var</code>.
-    If you define a local variable give it a name that makes sense. Not something like <code>foo</code> or <code>bla</code>. Also not some abreviation, which might makes sense at the moment. In this way
-    other people who will read your code can easily understand your code.</p>
+  <p>Notice the <code>var</code> in front ot the <code>sessionPlayer</code>. That is how local variables are defined. In contrast to Session variables, which are available in the whole client code, local variables (defined with a <code>var</code>) are only available within the context they are defined in. The curly brackets <code>{ }</code> define the context.</p>
+  <p>Local variables are often used to structure code and make it more readable. You probably will see these variables a lot. So look out for the <code>var</code>. If you define a local variable, give it a name that makes sense. Also not some abreviation, which might makes sense at the moment. In this way other people who will read your code can easily understand your code.</p>
 
   <h2>Do the switch</h2>
-  <p>Now we need to see which symbol is now in use and swap it for another.</p>
+  <p>Now we need to see which symbol is currently in use and swap it for another.</p>
   <p>The easiest way to do this is to use <code>if</code> statements to compare values:</p>
   {{#prism language="javascript" class="line-numbers"}}
     if(someValue == anotherValue) {
       //do something
     }
   {{/prism}}
-  <p>See the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else">MDN</a> page for more exmamples on if. Try to set another value to the Session by using the <code>if</code> statement and <code>Session.get()</code> and <code>Session.set()</code>.</p>
+  <p>See the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else">MDN</a> page for more exmamples on <code>if</code>. Try to set another value to the Session by using the <code>if</code> statement and <code>Session.get()</code> and <code>Session.set()</code>.</p>
   <p>Eventually, your code should look something like this:</p>
   {{#prism language="javascript" class="line-numbers"}}
     if(Session.get('player') == 'X') {
@@ -58,19 +54,20 @@
       Session.set('player', 'X');
     }
   {{/prism}}
-  <p>For readability you might want to wrap this code in a seperate function.</p>
+  <p>For readability you might want to wrap this code in a separate function.</p>
   {{#prism language="javascript" class="line-numbers"}}
     var setNextPlayer = function(){
       ...
     }
   {{/prism}}
-  <p>And call it after you have updated the collection. (<code>Boxes.update(...)</code>)</p>
+  <p>Call this function after you have updated the collection (<code>Boxes.update(...)</code>).</p>
   {{#prism language="javascript" class="line-numbers"}}
     setNextPlayer();
   {{/prism}}
-  <p>Have you noticed that when you click a box twice, the symbol in the box will change? That makes sense, because everytime you click the box, the player property of the box is again defined. So in the next step we will disable clicking a box when there is already a player set.</p>
-  {> summary}
+  <p>Have you noticed that when you click a box twice, the symbol in the box will change? That makes sense, because everytime you click the box, the player property of the box is  defined again. So in the next step we will disable clicking on a box when there is already a player set.</p>
+  {{> summary}}
   <p>We now know how to use a Meteor Session.</p>
   <p>We learned about <code>if</code> statements.</p>
-  <p>We know can define functions, local variables and both how to use them.</p>
+  <p>We can now define functions, local variables and how to use them.</p>
+  {{> examplelink url="https://github.com/afkatja/tictactoe/tree/master/step6"}}
 </template>
