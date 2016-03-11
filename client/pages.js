@@ -48,7 +48,7 @@ Template.pagination.helpers({
     }
   },
   disabledClassNext: function(){
-    if(currentIndex() == routes.length) {
+    if(currentIndex() == routes.length - 1) {
       return 'disabled';
     }
   }
