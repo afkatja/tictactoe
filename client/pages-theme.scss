@@ -122,7 +122,7 @@ img {
     &.info-hidden {
       transform: scaleX(0);
     }
-    code {
+    code, a {
       color: $color-green-dark;
     }
   }
